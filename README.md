@@ -24,9 +24,9 @@ Additional points to consider
 
 ## Kubernetes terminology
 
-* Kubernetes deployment configuration: the yaml file with all the stuff
+* _Kubernetes deployment configuration_ : the yaml file with all the stuff
 * Cluster has nodes. A node has pods. Pods have containers. You can do stuff 
-  the containers, using kubectl.
+  with the containers, using kubectl.
 * kubectl is your go-to tool for doing anything kube-related.
 * If you have a pode with just one container, 
   `kubectl exec <podname> command` runs a command in that container.
