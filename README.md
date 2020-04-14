@@ -20,3 +20,11 @@ Additional points to consider
 * Changing a field of an element changes its hash value. Therefore, it is treated as a new insertion by the `HashMap`
 * Normally you shouldn't unit test private methods.
 * Using toString on an object that doesn't define it just returns 1.
+
+# Next up
+
+
+* UNIX TCP sockets
+* git fsck utility 
+* .xprofile tricks
+
