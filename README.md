@@ -21,10 +21,21 @@ Additional points to consider
 * Normally you shouldn't unit test private methods.
 * Using toString on an object that doesn't define it just returns 1.
 
+
+## Kubernetes terminology
+
+* Kubernetes deployment configuration: the yaml file with all the stuff
+* Cluster has nodes. A node has pods. Pods have containers. You can do stuff 
+  the containers, using kubectl.
+* kubectl is your go-to tool for doing anything kube-related.
+* If you have a pode with just one container, 
+  `kubectl exec <podname> command` runs a command in that container.
+  Works the same way as `docker exec <container-id>` command.
+
 # Next up
 
 
 * UNIX TCP sockets
 * git fsck utility 
-* .xprofile tricks
+* `.xprofile` tricks
 
