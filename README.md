@@ -46,6 +46,22 @@ Yes, that worked. By the way, when the model was created and stored in the host-
 P.S. In the end, I used an older version, because of incompatibility with the one used in running the bot. The older version behaved as expected: file ownership was root again.
 
 
+## First k messages were not received by tcp socket server
+
+So yes, I was writing a simple client-server app in C, and I was using the humble sys/socket library. I had created a very basic protocol, where a client would first send a message declaring its options (much like a urlencoded parameter list) and then would send a number of messages, each message corresponding to one piece of data to be stored in a database. This was something that I had previously used with websockets, where message was handled by an `on_message()` method.
+
+So I happily wrote some unsafe C to see the thing working, without having put much thought to it. I would apply the usual checks afterwards (e.g. error checking). However, when I executed the code, I realized something weird. Sometimes, the server missed a number of messages, specifically the first `k` ones, where k ranged from 1 to, say, 20. I thought something was wrong with my application, I even used my trusty tcpdump command to check if everything was sent correctly, and it was!
+But still, it wasn't read correctly by my simple read loop inside the server code.
+
+Debugging was made even more difficult by the fact that I could not print out messages to the terminal because the server code was serving each client in a separate process. So I first learned an efficient way to print messages from a forked process. 
+*The trick was to write to a debug file and use fflush() all the time so that the file was actually written to. 
+Without fflush() I wouldn't have got anywhere because the forked process would stop with
+an error caused by the client process ending ("socket closed" error) and therefore would not flush the buffer.*
+
+With my newly acquired printing skills, I made the server print whatever it read from the socket. And I found that the read() 
+method was not fired whenever a tcp packet was received. Rather it was trying to buffer incoming messages, and then it read many messages at once. Which was nearly okay, as I was actually concatenating the incoming messages until the very end, when I would move on to the processing. But there was a bug there. The initial message was parsed in such a way that didn't look at the entirety of the message, but only at the options of interest to the server (which actually only cared about 2-3 values, namely an opcode and some metadata). Therefore, any trailing content was ignored, which was an issue because the intial message was not read "by itself", but accompanied by a number of messages sent at later times (because of the buffering mechanism explained in the beginning of this paragraph). Ooops! 
+
+My fix was of course to store the part of the read string that was *after* the intial message. 
 # Next up
 
 
