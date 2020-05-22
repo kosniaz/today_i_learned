@@ -62,10 +62,13 @@ With my newly acquired printing skills, I made the server print whatever it read
 method was not fired whenever a tcp packet was received. Rather it was trying to buffer incoming messages, and then it read many messages at once. Which was nearly okay, as I was actually concatenating the incoming messages until the very end, when I would move on to the processing. But there was a bug there. The initial message was parsed in such a way that didn't look at the entirety of the message, but only at the options of interest to the server (which actually only cared about 2-3 values, namely an opcode and some metadata). Therefore, any trailing content was ignored, which was an issue because the intial message was not read "by itself", but accompanied by a number of messages sent at later times (because of the buffering mechanism explained in the beginning of this paragraph). Ooops! 
 
 My fix was of course to store the part of the read string that was *after* the intial message. 
+
+# WebAudio problems
+
+* adding a new module from file: First I had a cors issue -> started up a simple http server. Then I had a network error (dafuk?). Turns out that network error sometimes is a "module not found" error - I had simply mistyped `process.js`!
 # Next up
 
 
-* UNIX TCP sockets
 * git fsck utility 
 * `.xprofile` tricks
 
