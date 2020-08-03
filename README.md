@@ -66,6 +66,18 @@ My fix was of course to store the part of the read string that was *after* the i
 # WebAudio problems
 
 * adding a new module from file: First I had a cors issue -> started up a simple http server. Then I had a network error (dafuk?). Turns out that network error sometimes is a "module not found" error - I had simply mistyped `process.js`!
+
+# Twilio `<Connect>`
+
+At work we have a Voice Assistant service that works with websockets. The client connects to the socket, and when ready to speak, 
+send a "RESTART_COMMUNICATION" message, followed by base64 audio chunks. (that is, the user's real time voice audio). When the server recognizes a full phrase, it send back a signal to tell the client to stop sending audio chunks, and after some 300ms, the client receives an mp3 with the VA's response. 
+
+To make that work with twilio, one has to:
+
+* write a client that keeps a bidirectional channel with the phone call - through which it exchanges some json info - while keeping an open socket with the VA service.
+
+
+
 # Next up
 
 
