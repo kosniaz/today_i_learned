@@ -83,4 +83,7 @@ To make that work with twilio, one has to:
 
 * git fsck utility 
 * `.xprofile` tricks
-
+* node bind() (which `this` is this?)
+* npm ws vs websocket
+* hackernoon/codepen
+* https on node.js
