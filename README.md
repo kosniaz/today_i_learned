@@ -77,6 +77,16 @@ To make that work with twilio, one has to:
 * write a client that keeps a bidirectional channel with the phone call - through which it exchanges some json info - while keeping an open socket with the VA service.
 
 
+# Today 14-9-20 i lrnd
+
+1. rename your tmux sessions according to project: `Ctrl-B` & `$`
+2. if you have `CMD` specified in Dockerfile, use docker-compose build to update the cmd
+3. To check if a websocket is working, use your browser as js interpreter: f12-> Debug (or console) and run
+```
+ws = new WebSocket(<endpoint>)
+```
+
+
 
 # Next up
 
