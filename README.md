@@ -90,7 +90,7 @@ ws = new WebSocket(<endpoint>)
 
 # Next up
 
-
+* auto_up=false in docker
 * git fsck utility 
 * `.xprofile` tricks
 * node bind() (which `this` is this?)
