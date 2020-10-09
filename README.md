@@ -86,7 +86,31 @@ To make that work with twilio, one has to:
 ws = new WebSocket(<endpoint>)
 ```
 
+# Acer inspire: got locked out of bios
 
+Quick response: just get the reset key from [here](https://www.biosbug.com/acer-10-digit/)
+
+# Install Linux alongside an existing Win10 partition.
+
+1. Resize the Win10 partition.
+2. Create a Linux Swap partition around the size of your RAM
+3. Create a Linux ext4 partition for the root of your Linux, perhaps an extra one for the home folder, if deemed necessary.
+4. Configure the installation: install grub in the existing ESP partition, select the swap partition for swap, set the home and root partitions
+5. Hit install
+6. Boot into windows, add the grub menu to the boot menu and set it first in the list. Use the command 
+```
+bcdedit /set {bootmgr} path \EFI\<YOUR_DISTRO>\grubx64.efi 
+```
+7. If it doesn't work, boot into Linux and use 
+```
+sudo efibootmgr
+```
+To see what GRUB sees as legit boot options. 
+8. If step 6 doesn't work, you may need a temporary solution. Try setting 
+```
+sudo efibootmgr -n 000X
+```
+where X is the number of the linux option in the output of the `sudo efibootmgr` command.
 
 # Next up
 
@@ -97,3 +121,5 @@ ws = new WebSocket(<endpoint>)
 * npm ws vs websocket
 * hackernoon/codepen
 * https on node.js
+* how to juggle with multiple dockerfiles in docker and why do it
+* cron jobs, the oldest automation option still in use.
