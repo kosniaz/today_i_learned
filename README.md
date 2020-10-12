@@ -112,6 +112,32 @@ sudo efibootmgr -n 000X
 ```
 where X is the number of the linux option in the output of the `sudo efibootmgr` command.
 
+# Basic Python syntax:
+
+When you see something like 
+```
+    def __call__(self, string, univ_pos, morphology=None):
+        if not self.rules:
+            return [self.lookup_table.get(string, string)]
+        if univ_pos in (NOUN, 'NOUN', 'noun'):
+            univ_pos = 'noun'
+        elif univ_pos in (VERB, 'VERB', 'verb'):
+            univ_pos = 'verb'
+        elif univ_pos in (ADJ, 'ADJ', 'adj'):
+            univ_pos = 'adj'
+        elif univ_pos in (PUNCT, 'PUNCT', 'punct'):
+            univ_pos = 'punct'
+        else:
+            return list(set([string.lower()]))
+        lemmas = lemmatize(string, self.index.get(univ_pos, {}),
+                           self.exc.get(univ_pos, {}),
+                           self.rules.get(univ_pos, []))
+        return lemmas
+```
+
+You might wonder what is this getter?  Well it is python's suggested way of getting stuff from dicts, and the second argument is just the return value in case the 
+entered key was not found. 
+
 # Next up
 
 * auto_up=false in docker
