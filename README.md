@@ -138,6 +138,13 @@ When you see something like
 You might wonder what is this getter?  Well it is python's suggested way of getting stuff from dicts, and the second argument is just the return value in case the 
 entered key was not found. 
 
+# Docker-compose build taking forever
+
+There is something called `build context`. This is the folder where the dockerfile is built from. This doesn't have to be the folder the Dockerfile is stored.
+Every file that is referenced inside the Dockerfile must be inside the context folder. This is why a container that need files across the whole project normally should have the project root as its `build context`. 
+
+Before building a new image, docker needs to store the whole context in a special place. In some cases, where the context is unusually large, this can take forever. And the worst of all is that docker-compose does not give any output on this. On the contrary, `docker build` does: it counts the megabytes as they are copied from the context. Use docker build if you want to see if the context is too big; then reduce it to make docker-compose build responsive again.
+
 # Next up
 
 * auto_up=false in docker
