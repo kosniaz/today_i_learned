@@ -145,6 +145,14 @@ Every file that is referenced inside the Dockerfile must be inside the context f
 
 Before building a new image, docker needs to store the whole context in a special place. In some cases, where the context is unusually large, this can take forever. And the worst of all is that docker-compose does not give any output on this. On the contrary, `docker build` does: it counts the megabytes as they are copied from the context. Use docker build if you want to see if the context is too big; then reduce it to make docker-compose build responsive again.
 
+# Change project name willingly in docker-compose
+
+Normally project name for docker-compose is by default the name of the enclosing dir. This can cause problems if 2 dirs have the same name in your system.
+To deliberately set a project name, use `.env` in the same dir as your compose file:
+```
+COMPOSE_PROJECT_NAME=YOUR_PROJECT_NAME_HERE
+```
+
 # Next up
 
 * set up redshift: https://askubuntu.com/questions/630008/redshift-no-adjustment-method-randr
