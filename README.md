@@ -147,6 +147,7 @@ Before building a new image, docker needs to store the whole context in a specia
 
 # Next up
 
+* set up redshift: https://askubuntu.com/questions/630008/redshift-no-adjustment-method-randr
 * auto_up=false in docker
 * git fsck utility 
 * `.xprofile` tricks
