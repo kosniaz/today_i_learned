@@ -155,6 +155,10 @@ COMPOSE_PROJECT_NAME=YOUR_PROJECT_NAME_HERE
 
 # Next up
 
+* gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
+* using tiny proxy: [easy as f***](https://www.justinmccandless.com/post/set-up-tinyproxy-in-ubuntu/)
+* capcha problems, and incapsula weirdness from eody's website
+* compose file: images with same name
 * set up redshift: https://askubuntu.com/questions/630008/redshift-no-adjustment-method-randr
 * auto_up=false in docker
 * git fsck utility 
