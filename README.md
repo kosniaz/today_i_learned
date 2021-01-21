@@ -152,6 +152,29 @@ To deliberately set a project name, use `.env` in the same dir as your compose f
 ```
 COMPOSE_PROJECT_NAME=YOUR_PROJECT_NAME_HERE
 ```
+# Some useful search and replace:
+
+## Case 1: extend logging with writing to a file too:
+```
+:%s/logging.info(\(\_.\{-}\))/logging.info(\1)^M    self\.temp_file\.write(\1)
+```
+## Case 2: wrong format in the yaml for rasa's automated test stories
+correct format:
+```
+ - user: |
+     Χελλου
+   intent: Greetings
+```
+Current format:
+```
+  - intent: Greetings
+    - user: 
+      Χελλου
+```
+Steps to solve:
+1. `:%s/    - user:/  - user:/g`
+2. `:%s/  - \(intent: \._\{-}\)\n  \(- user:\._\{-}\n\._\{-}\)/  \2\r  \1/g`
+3. Clean up
 
 # Next up
 
