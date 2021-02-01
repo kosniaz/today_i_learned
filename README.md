@@ -176,6 +176,29 @@ Steps to solve:
 2. `:%s/  - \(intent: \._\{-}\)\n  \(- user:\._\{-}\n\._\{-}\)/  \2\r  \1/g`
 3. Clean up
 
+# Displaying unicode characters from their hex representation using json!
+
+Very commonly, rasa's report files are fiddled with codepoints in the `\u` notation (e.g '\u039e\u03ad\u03c1\u03b5\u03b9\u03c2').
+This can be fixed in various ways, e.g using a conversion site. However this is not good. So I wrote this script:
+```
+# display_json_in_unicode.py
+import json
+import sys
+INPUT_F= sys.argv[1] if len(sys.argv) > 1  else "input.json"
+OUTPUT_F= sys.argv[2] if len(sys.argv)> 2 else "output.json"
+with open(INPUT_F,"r") as f:
+  dic= json.load(f)
+
+with open(OUTPUT_F,"w") as ww:
+  json.dump(dic,ww,ensure_ascii=False,indent=4)
+
+```
+
+You can use it like this:
+```
+python3  display_json_in_unicode.py in.json out.json
+```
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
