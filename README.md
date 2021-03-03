@@ -199,6 +199,12 @@ You can use it like this:
 python3  display_json_in_unicode.py in.json out.json
 ```
 
+# one line https server:
+
+```
+openssl s_server -accept 7781 -cert server.cert -key server.key -WWW
+```
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
