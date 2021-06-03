@@ -217,7 +217,12 @@ openssl s_server -accept 7781 -cert server.cert -key server.key -WWW
 export CUDA_VISIBLE_DEVICES='' #https://developer.nvidia.com/blog/cuda-pro-tip-control-gpu-visibility-cuda_visible_devices/
 ```
 
-
+# change remote url of submodule
+```
+git config -file=.gitmodules gitmodule.NAME.url <url>
+...
+```
+[Read the source](https://dev.to/serhatteker/changing-git-submodule-repository-to-other-url-branch-356p)
 
 # Next up
 
