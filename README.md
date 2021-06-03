@@ -199,11 +199,25 @@ You can use it like this:
 python3  display_json_in_unicode.py in.json out.json
 ```
 
-# one line https server:
+# one line https server
 
 ```
 openssl s_server -accept 7781 -cert server.cert -key server.key -WWW
 ```
+
+# argparse basic modes
+
+```
+#pass
+```
+
+# Using GPU's (nvidia)
+```
+# make all GPUs invisible
+export CUDA_VISIBLE_DEVICES='' #https://developer.nvidia.com/blog/cuda-pro-tip-control-gpu-visibility-cuda_visible_devices/
+```
+
+
 
 # Next up
 
