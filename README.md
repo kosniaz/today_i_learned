@@ -224,6 +224,16 @@ git config -file=.gitmodules gitmodule.NAME.url <url>
 ```
 [Read the source](https://dev.to/serhatteker/changing-git-submodule-repository-to-other-url-branch-356p)
 
+# pruning old docker images
+
+```
+docker image prune -a --force --filter "until=2020-01-12T00:00:00"
+```
+or if you want to filter based on age, e.g. 24h, 10d or 1 year, use the h to specify hours
+```
+docker image prune -a --force --filter "2400h" # 100 days
+```
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
