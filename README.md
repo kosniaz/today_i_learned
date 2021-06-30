@@ -234,6 +234,15 @@ or if you want to filter based on age, e.g. 24h, 10d or 1 year, use the h to spe
 docker image prune -a --force --filter "2400h" # 100 days
 ```
 
+# Run any one of the following command on Linux to see open ports
+```
+sudo lsof -i -P -n | grep LISTEN
+sudo netstat -tulpn | grep LISTEN
+sudo ss -tulpn | grep LISTEN
+sudo lsof -i:22 ## see a specific port such as 22 ##
+sudo nmap -sTU -O IP-address-Here
+```
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
