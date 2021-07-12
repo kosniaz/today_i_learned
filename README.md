@@ -243,6 +243,15 @@ sudo lsof -i:22 ## see a specific port such as 22 ##
 sudo nmap -sTU -O IP-address-Here
 ```
 
+# CORS: acceptance of your HTTP request is not just one header away
+
+as seen here, your http server must handle "preflight" too https://stackoverflow.com/questions/35254742/tornado-server-enable-cors-requests
+
+# Maven
+
+What is maven and why is it useful? ---> [check this](https://www.youtube.com/watch?v=bSaBmXFym30)
+
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
