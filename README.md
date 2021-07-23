@@ -251,6 +251,35 @@ as seen here, your http server must handle "preflight" too https://stackoverflow
 
 What is maven and why is it useful? ---> [check this](https://www.youtube.com/watch?v=bSaBmXFym30)
 
+# Python CrossPlatform IO
+
+Welcome to cross-platform issues. Issue 1:
+
+## Unicode error while reading from file:
+
+When reading non ascii characters, windows' python will fail when reading:
+```
+  File "c:\dist\python\lib\configparser.py", line 763, in readfp
+    self.read_file(fp, source=filename)
+  File "c:\dist\python\lib\configparser.py", line 718, in read_file
+    self._read(f, source)
+  File "c:\dist\python\lib\configparser.py", line 1015, in _read
+    for lineno, line in enumerate(fp, start=1):
+  File "c:\dist\python\lib\codecs.py", line 321, in decode
+    (result, consumed) = self._buffer_decode(data, self.errors, final)
+  File "c:\dist\python\lib\encodings\utf_8_sig.py", line 69, in _buffer_decode
+    return codecs.utf_8_decode(input, errors, final)
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+```
+
+As a bonus, you can use [this site](https://pages.cs.wisc.edu/~markm/ascii.html) to find if something is ascii.
+
+Anyway, to fix this issue, you must open the file in utf-8 mode like this:
+```
+f = open("test", mode="r", encoding="utf-8")
+```
+
+Same applies for opening file to write it.
 
 # Next up
 
