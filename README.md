@@ -281,6 +281,53 @@ f = open("test", mode="r", encoding="utf-8")
 
 Same applies for opening file to write it.
 
+# Machine inaccessible through VPN 
+
+For some reason, we had a server here at work which at some point didn't respond to any requests coming from the VPN. Server was unreachable, `ping`s, `ssh`s, `curl`s, everything just timed out. At that time I had lots of things on my hands so I just switched to a "backup" VPN we had, and it worked. However, others tried to access it through the main VPN, and couldn't. When I found some time, I tested some of my hypotheses:
+
+* It wasn't a wrong setting on the client side.
+* No, it wasn't DNS
+* Iptables didn't block any incoming traffic
+* Yes, it was reachable inside the workplace LAN
+* Yes, I could just work around the problem by using another server as a middleman/woman/person.
+
+But what was it? I send a message to our netadmin, initially he was at a loss. The next day I saw a message on MSTeams:
+```
+You have assigned 192.168.10.0/24 to the docker network, i.e. the bridge interface is received all traffic 
+from this subnet. This includes all addresses in our VPN.
+```
+
+Daym. When did I do that? Why? I wouldn't have done this intentionally, ever. 
+I searched for this subnet in the interfaces of the server. I ran `ifconfig | grep -C 2 192.168`
+```
+br-7d0750ee4e98: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.0.1  netmask 255.255.240.0  broadcast 192.168.15.255
+        ether 02:42:00:d8:82:d8  txqueuelen 0  (Ethernet)                 
+        RX packets 0  bytes 0 (0.0 B)                             
+--                                   
+                                                             
+br-c76612a469fb: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500             
+        inet 192.168.48.1  netmask 255.255.240.0  broadcast 192.168.63.255
+        ether 02:42:8e:98:da:0a  txqueuelen 0  (Ethernet)                     
+        RX packets 0  bytes 0 (0.0 B)                                   
+--                                                          
+                                                                  
+br-f50000b10b5d: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500            
+        inet 192.168.32.1  netmask 255.255.240.0  broadcast 192.168.47.255
+        ether 02:42:01:de:83:af  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)                             
+--     
+```
+
+Three bridges were using this subnet. However I had no time to search for stuff, so I just deleted the unused networks.
+```
+docker network prune
+```
+
+But now I will never find why I had these networks in the first place. 
+
+
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
