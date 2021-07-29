@@ -326,7 +326,12 @@ docker network prune
 
 But now I will never find why I had these networks in the first place. 
 
+# install python linter on vim real quick (if vim version > 8)
 
+1. Install ALE just by cloning repo to vim modules folder (like [this](https://github.com/dense-analysis/ale#standard-installation))
+2. Install pylint through pip
+
+# Fast API is actually super fast for http
 
 # Next up
 
