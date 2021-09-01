@@ -342,6 +342,20 @@ Try them out yourself. Save your tmux environment and load it, all sessions, win
 3. Install tmux continuum if you want autosave, autoload https://github.com/tmux-plugins/tmux-continuum (check README.md)
 4. Set storing pane contents https://github.com/tmux-plugins/tmux-resurrect/blob/master/docs/restoring_pane_contents.md
 
+## Bonus, setting max scroll buffer, and clearing it (using key bindings)
+
+To set max scroll buffer in tmux, add this line to `~/.tmux.conf`
+```
+set -g history-limit 15000
+```
+
+To map clearing the history to Ctrl-k, add this line to `~/.tmux.conf`
+```
+bind -n C-k send-keys -R \; send-keys C-l \; clear-history
+```
+
+*Attention:* Even after you delete this line and reload the configuration (with Ctrl-b and then I) this binding will persist. If you want to undo this setting you will have to go out your way as [here is no easy way to set the key chord back to its previous value](https://unix.stackexchange.com/questions/57641/reload-of-tmux-config-not-unbinding-keys-bind-key-is-cumulative)
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
