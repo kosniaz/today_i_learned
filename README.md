@@ -356,6 +356,26 @@ bind -n C-k send-keys -R \; send-keys C-l \; clear-history
 
 *Attention:* Even after you delete this line and reload the configuration (with Ctrl-b and then I) this binding will persist. If you want to undo this setting you will have to go out your way as [here is no easy way to set the key chord back to its previous value](https://unix.stackexchange.com/questions/57641/reload-of-tmux-config-not-unbinding-keys-bind-key-is-cumulative)
 
+In any case, my current tmux config is the following:
+```
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+# store the pane contents on save
+set -g @resurrect-capture-pane-contents 'on'
+# restore last saved environment on tmux restart
+set -g @continuum-restore 'on'
+# set buffer history to 15000 so as to preserve disk space
+set -g history-limit 15000
+# set ctrl-k to clear the pane buffer, if you dont want it anymore
+bind -n C-k send-keys -R \; send-keys C-l \; clear-history
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
+```
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
