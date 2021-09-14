@@ -400,7 +400,25 @@ if elapsed_time > max_conn_time:
     
 ```
 
-## How datetime/timedata should be used
+## How datetime/timedata cirrect syntax
+
+```
+import time
+# import the class definitions
+from datetime import datetime as dt
+from datetime import timedelta as td
+
+# create the objects
+then = dt.now()
+time.sleep(2)
+now = dt.now()
+max_allowd_diff= td(0,1,400) # 10 seconds
+if ((now-then)> max_allowd_diff):
+    print("Diff is too long")
+else:
+    print("okay, time is not too much")
+print(now-then)
+```
 
 
 # Next up
