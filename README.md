@@ -376,6 +376,33 @@ bind -n C-k send-keys -R \; send-keys C-l \; clear-history
 run '~/.tmux/plugins/tpm/tpm'
 ```
 
+# Python timestamps.
+
+So you have a fastapi server, and need to close connections after n seconds of inactivity. 
+An easy way to do it, without add callbacks, timers etc is to check if a connection has expired every time a new one needs to open.
+That way, you can ensure that expired connections release their resources before the next time they are needed.
+
+## Datetime (or timedate?) and timedelta. How I remember it
+
+I always forget how the classes are named. My guess is that the names are like this:
+
+```
+import datetime.datetime as dt
+import datetime.timedelta as td
+print("Current time is {}".format(str(dt.now()))
+saved_ts= dt.now()
+await sleep(2)
+max_conn_time = td(seconds=30)
+elapsed_time = dt.now() - saved_ts
+print("Elapsed time is {}.format(str(elapsed_time)
+if elapsed_time > max_conn_time:
+    print("too much time has passed, shutting down")
+    
+```
+
+## How datetime/timedata should be used
+
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
