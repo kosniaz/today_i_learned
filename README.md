@@ -420,6 +420,22 @@ else:
 print(now-then)
 ```
 
+# clean up tmp from dem rasa files
+use the find command. First go inside `tmp`.
+```
+find . -maxdepth 1 -type d -name 'tmp*' 
+```
+Inspect the results of this command. If they are correct, delete them with the next cmd 
+(**WARNING, MAKE SURE YOU DON'T DELETE SOMETHING USEFUL**)
+```
+rm -r `find . -maxdepth 1 -type d -name 'tmp*'`
+```
+# Add new partition to lvm 
+
+Follow this guide for ubuntu:
+
+https://www.cyberciti.biz/faq/howto-add-disk-to-lvm-volume-on-linux-to-increase-size-of-pool/
+
 
 # Next up
 
