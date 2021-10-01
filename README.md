@@ -436,7 +436,13 @@ Follow this guide for ubuntu:
 
 https://www.cyberciti.biz/faq/howto-add-disk-to-lvm-volume-on-linux-to-increase-size-of-pool/
 
+# garbled characters in vim driving you crazy 
 
+Check your .vimrc, there's a change youve forgotten to add:
+```
+set encoding=utf-8
+scriptencoding utf-8
+```
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
