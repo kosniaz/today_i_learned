@@ -443,6 +443,12 @@ Check your .vimrc, there's a change youve forgotten to add:
 set encoding=utf-8
 scriptencoding utf-8
 ```
+# Python passes by sharing
+
+that means that objects are passed by value if they are immutable, (e.g. integers, strings)
+and by reference if they are mutable (e.g. lists, dicts)
+
+reference: [this SO answer](https://stackoverflow.com/a/15078615)
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
