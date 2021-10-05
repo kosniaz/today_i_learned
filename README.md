@@ -449,6 +449,24 @@ that means that objects are passed by value if they are immutable, (e.g. integer
 and by reference if they are mutable (e.g. lists, dicts)
 
 reference: [this SO answer](https://stackoverflow.com/a/15078615)
+
+# Rasa X Api JWT Bearer token authentication
+
+## Step one: get the actual token (not the one in the environment of rasa x). Source [here](https://forum.rasa.com/t/using-the-http-api-how-to-get-bearer-token-programmatically/10256)
+```
+curl -XPOST http://localhost:5002/api/auth -d '{"username": "me", "password": <PW>}'
+```
+This will return a token, which you will store in a file and then put inside a env variable
+```
+TOKEN=`cat token.txt`
+```
+## Step two: use the token (correctly!)
+```
+curl -H "Authentication: Bearer $TOKEN" http://localhost:5002/api/health
+```
+**don't forget the api part!** Otherwise you will get html responses.
+
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
