@@ -496,7 +496,11 @@ Then it worked, but darn, it was a Bootstrap css. [It was working in js-fiddle](
 Luckily I was able to fix it by using `text-align: center`, as well as using [this trick](http://jsfiddle.net/3F5WQ/4/) to align the buttons in the same row. 
 The pushed code is [here]() (you need to be in the repo to see it, :/)
 
-
+# Remove from list
+```
+my_list=[1,2,9]
+my_list.remove(9) # now my_list=[1,2]
+```
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
