@@ -476,12 +476,25 @@ Anyway, the new code was pretty straightforward: I added a new function which ru
 
 ### A debug tool for CORS errors:
 
-Use [this site](https://www.test-cors.org/) to test server response to the preflight (OPTIONS) message. After some trouble, it was okay.
+Use [this site](https://www.test-cors.org/) to test server response to the preflight (OPTIONS) message. After some trouble using it, I made it work, and I found out there was nothing wrong with my server's CORS. What was it then?
 
-but in the end it was
+```
+Due to the behaviour of form-submit, the client was POSTing the password, but it was killing the page right afterwards (by refreshing it).
+```
 
+To fix that, I had to set the action to be `#` and to return false after calling the onSubmit method, as described [here](https://stackoverflow.com/a/57226770)
 
-...to be continued
+## Improving the looks with a CSS template.
+
+In the beginning I looked around for a template, but it didn't work because I wasn't importing it correctly. It must be
+```
+<link rel="stylesheet" href="my_css.css">
+```
+### Don't use Bootstrap css for vanilla html/css/js duh
+
+Then it worked, but darn, it was a Bootstrap css. [It was working in js-fiddle](https://jsfiddle.net/cy8hro26/), so I had thought it would be okay in my own implementation. It kinda worked, but it had some issues. First all the elements were in the left, not in the center, as I wanted them.
+Luckily I was able to fix it by using `text-align: center`, as well as using [this trick](http://jsfiddle.net/3F5WQ/4/) to align the buttons in the same row. 
+The pushed code is [here]() (you need to be in the repo to see it, :/)
 
 
 # Next up
