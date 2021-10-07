@@ -466,6 +466,23 @@ curl -H "Authentication: Bearer $TOKEN" http://localhost:5002/api/health
 ```
 **don't forget the api part!** Otherwise you will get html responses.
 
+# Refactoring the wizard web client
+
+## Adding authentication
+
+This was supposed to be easy. I just need an initial form which would activate a javascript function to forward the inserted password to a simple server endpoint waiting on the backend. For that, I would have to make a POST request with the pass in the message body, so as to be encrypted. In order to that, I followed [this tutorial](https://www.freecodecamp.org/news/here-is-the-most-popular-ways-to-make-an-http-request-in-javascript-954ce8c95aaa/), which didn't work well for me. Maybe it was pure chance, but [the official mozilla one got it much better](https://developer.mozilla.org/en-US/docs/Web/API/fetch).
+
+Anyway, the new code was pretty straightforward: I added a new function which run the `fetch` library's methods to perform an `HTTP POST` request, and I set the promise's target to be the function that had the rest of my code. However, the client failed with NetworkError (kind like [this one here](https://github.com/github/fetch/issues/310). After googling it, I found out that it was probably the same old CORS error that I have with the FastAPI servers now n then.
+
+### A debug tool for CORS errors:
+
+Use [this site](https://www.test-cors.org/) to test server response to the preflight (OPTIONS) message. After some trouble, it was okay.
+
+but in the end it was
+
+
+...to be continued
+
 
 # Next up
 
