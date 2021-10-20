@@ -524,6 +524,15 @@ docker-compose -p myProject up
 Even better, to the `COMPOSE_PROJECT_NAME` variable in `.env`. 
 
 source https://github.com/docker/compose/issues/2982
+
+# When something that was supposed to be working breaks....
+
+This happens to me all the time. Ι believe something is working, something I take for granted, but damn!
+Turns out didn't code/commit/deploy it right.
+
+Then I realize I either have to stop what I'm doing and fix it (and therefore lose time and focus)
+or continue what I'm doing and ignore the protests of everyone affected by the break.
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
