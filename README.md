@@ -521,7 +521,7 @@ and
 docker-compose -p myProject up
 ```
 
-Even better, to the `PROJECT_NAME` variable in `.env`. 
+Even better, to the `COMPOSE_PROJECT_NAME` variable in `.env`. 
 
 source https://github.com/docker/compose/issues/2982
 # Next up
