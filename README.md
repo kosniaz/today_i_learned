@@ -498,11 +498,32 @@ Then it worked, but darn, it was a Bootstrap css. [It was working in js-fiddle](
 Luckily I was able to fix it by using `text-align: center`, as well as using [this trick](http://jsfiddle.net/3F5WQ/4/) to align the buttons in the same row. 
 The pushed code is [here]() (you need to be in the repo to see it, :/)
 
-# Remove from list
+# Python Remove from list
 ```
 my_list=[1,2,9]
 my_list.remove(9) # now my_list=[1,2]
 ```
+# Change project name in docker compose, or you'll have conflicts
+
+Project name in docker compose is by default the containing folder 
+```
+(but what if your compose file is in the root dir?)
+```
+Sorry, an intrusive thought. Where was I... Ah yes. So the project name is what your network, your images and your containers and named after. E.g, the network will be named `parentDir_default` and a service named `asr` will have its image named `parentDir_asr` and its container named `parentDir_asr_1`.
+Of course, you can change these names by adding your own external network, and change the suffix of the service's image/container names by editing the `container_name` and `image` fields of every service separetely. 
+
+Unless you specify a different project name, which is a much simpler option. That means that images and containers will keep the suffix used in the compose file, but the prefix will change. This can be achieved as follows:
+```
+docker-compose -p myProject build
+```
+and
+```
+docker-compose -p myProject up
+```
+
+Even better, to the `PROJECT_NAME` variable in `.env`. 
+
+source https://github.com/docker/compose/issues/2982
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
