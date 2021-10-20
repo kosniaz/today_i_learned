@@ -528,10 +528,25 @@ source https://github.com/docker/compose/issues/2982
 # When something that was supposed to be working breaks....
 
 This happens to me all the time. Ι believe something is working, something I take for granted, but damn!
-Turns out didn't code/commit/deploy it right.
+Turns out didn't code/commit/deploy it well enough.
 
 Then I realize I either have to stop what I'm doing and fix it (and therefore lose time and focus)
-or continue what I'm doing and ignore the protests of everyone affected by the break.
+or continue what I'm doing and ignore the protests of everyone affected by the break. 
+```
+This is damn stressful
+```
+But the thing is, that's what happens when you make software without proper testing, and deployment. 
+Also this happens when everything is working in test deployments, not in proper ones. What's more, 
+to complete something takes more than to see it work. We should emphasize more on all the things 
+that are needed **after** something is done. 
+
+But in the meantime, bugs happen all the time, and even when it's not our fault, it's our resposibility.
+In other words, it's our job, and our job shouldn't be an emotional rollercoaster. We should have some time reserved for the occasional 
+urgent bug, some mistake in deployment, some 1 hour quick fix that needs to be done. It's part of the deal. 
+```
+Software is complex by nature, so it's a wild beast to tame.
+```
+Don't be overwhelmed when it kicks and breaks ocassionally. Relax and enjoy the problem solving that ensues :)
 
 # Next up
 
