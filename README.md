@@ -548,6 +548,16 @@ Software is complex by nature, so it's a wild beast to tame.
 ```
 Don't be overwhelmed when it kicks and breaks ocassionally. Relax and enjoy the problem solving that ensues :)
 
+# Unicode file names giberrish when downloading entire folder from OneDrive
+
+Turns out this is a bug when downloading from Linux. (Or an evil MS trick)
+After trying to decipher the weird code (which was displayed on octal on the linux server) I fired up my windows machine
+and downloaded the files from the browser and voila! The filenames were now readable, so I uploaded them to my server and 
+everything was fine:
+```
+scp -r folder_with_greek_names kosmas@myserver:~
+```
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
