@@ -558,6 +558,15 @@ everything was fine:
 scp -r folder_with_greek_names kosmas@myserver:~
 ```
 
+# Change python imported code
+Something simple that I hadn't realized.
+
+When working with python, you can modify the source of the libraries you are using. They are normally stored in `path/to/venv/lib/python3.7/site-packages/`. Use rg and/or find to see what you want to modify or override in your own implementation.
+
+# Rasa actions server issues
+
+Today I was working on adding a user story on Theano, our covid va chatbot. All I had to do was to override the `validate()` method, which was called once per turn while chatbot is in executing a form. The aim was to add handling of a special case in forms where the user could ask for location-specific data: sometimes user asked for city-specific data. 
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
