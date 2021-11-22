@@ -576,8 +576,24 @@ After I spent some time just to realize my code is available freely at my venv, 
 
 Some 3 hours later, none of those worked. Reason was that the tracker object wasn't updated with the form actions, probably because they all belonged to the rule/form policy. All the tracker knows is that the `covid_statistics_form` is run.
 
-So I ended up using a global dict of `{"client_id" : last_turn_where_validation_was_run}`
+So I ended up using a global dict of `{client_id : last_turn_where_validation_was_run}`
 
+# setting up kubernetes for Theano pt1
+
+### Questions 
+
+1. which kubernetes distro to use? e.g. minikube, k3s, microk8s, kind (good with docker images!)
+2. tutorials? Found some, see next section. i) 
+4. to helm chart or not to helm chart?
+
+### Tutorials
+
+1. [ ] Some guy's simple hands-on tutorial https://testdriven.io/blog/running-flask-on-kubernetes/ 
+2. [ ] Offical on services https://kubernetes.io/docs/concepts/services-networking/service/
+3. [ ] Official on deployemnts https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+4. [ ] Official on Workloads
+5. [ ] Rasa setup kuber
+6. [ ] More on helm https://jfrog.com/blog/10-helm-tutorials-to-start-your-kubernetes-journey/`
 
 
 # Next up
