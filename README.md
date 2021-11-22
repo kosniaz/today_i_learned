@@ -595,6 +595,9 @@ So I ended up using a global dict of `{client_id : last_turn_where_validation_wa
 5. [ ] Rasa setup kuber
 6. [ ] More on helm https://jfrog.com/blog/10-helm-tutorials-to-start-your-kubernetes-journey/`
 
+### Have read
+
+1. https://stackoverflow.com/questions/60991658/kubectl-what-does-client-vs-server
 
 # Next up
 
