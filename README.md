@@ -565,7 +565,20 @@ When working with python, you can modify the source of the libraries you are usi
 
 # Rasa actions server issues
 
-Today I was working on adding a user story on Theano, our covid va chatbot. All I had to do was to override the `validate()` method, which was called once per turn while chatbot is in executing a form. The aim was to add handling of a special case in forms where the user could ask for location-specific data: sometimes user asked for city-specific data. 
+Today I was working on adding a user story on Theano, our covid va chatbot. All I had to do was to override the `validate()` method, which was called once per turn while chatbot is in executing a form. The aim was to add handling of a special case in forms where the user could ask for location-specific data: sometimes user asked for city-specific data. First I had to find the correct version of validate to modify. Normally, I would have searched in the repo of `rasa-sdk`. But as my current version was not in any of the repo tags, I couldn't just go find the exact version of validate running. Then I realized that all rasa code resides in my `venv/lib/site-packages` directory. So all I had to do was run `rg "def validate(" path/to/my/venv` and to find the file where validate is defined. 
+
+After I spent some time just to realize my code is available freely at my venv, I had to do the job inside the function, and then it would be over. However, as brief_country was a pre-filled slot, `validate()` was run twice (as pointed out [on the forum](https://forum.rasa.com/t/slots-get-filled-twice-in-formaction/13660/8), validate is run twice in the begging of the form, if there is a prefilled slot). Aaaand there I had another iteration on trying to solve this thing. Ideas were:
+
+1) check the tracker for past actions, and dont utter the desired message if validation action has already run this dialogue turn
+2) set a slot to count if validation has been run again this turn
+3) check utterances object, in case it holds everything not uttered yet
+
+
+Some 3 hours later, none of those worked. Reason was that the tracker object wasn't updated with the form actions, probably because they all belonged to the rule/form policy. All the tracker knows is that the `covid_statistics_form` is run.
+
+So I ended up using a global dict of `{"client_id" : last_turn_where_validation_was_run}`
+
+
 
 # Next up
 
