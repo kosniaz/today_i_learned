@@ -599,6 +599,35 @@ So I ended up using a global dict of `{client_id : last_turn_where_validation_wa
 
 1. https://stackoverflow.com/questions/60991658/kubectl-what-does-client-vs-server
 
+
+# Setting up k8s for theano pt2
+
+With kubespray and vagrant. Steps 
+
+1. install vagrant, libvirt, qemu, kvm, etc
+    - https://joachim8675309.medium.com/devops-box-vagrant-with-kvm-d7344e79322c
+2. Add $USER to groups: libvirt, kvm
+3. pull kubespray repo from github (in `~/workspace/k8s/`)
+4. `pip install -r requirements.txt` (of kubespray repo)
+5. edit Vagrantfile (or create separate config file) for desired VM characteristics
+    - 6 total nodes (each node has 6 vCPUs, 32GB RAM)
+    - 2 master nodes
+    - 3 etcd nodes
+6. `vagrant up` (creates and configures all the VMs and the kubernetes cluster)
+7. Install kubectl: `sudo snap install kubectl --classic`
+8. copy `admin.conf` (created in inventory/sample/artifacts/ ) to `~/.kube/config`
+9. Deploy Dashboard UI
+    - https://www.replex.io/blog/how-to-install-access-and-add-heapster-metrics-to-the-kubernetes-dashboard
+    - to access dashboard OUT of localhost, reverse ssh tunnel is necessary:
+        - `ssh -N -f -L localhost:8001:localhost:8001 kubaras@chomsky`
+
+# setup disk 
+
+1. use fdisk to partition full disk in ext4
+2. mount in desired folder (e.g. mount /dev/sdb /storage/ for data partition) 
+3. find UUID using `sudo blkid`
+4. add in fstab using the format `UUID=5e524872-fb2d-4b28-ba23-ca7290ba00fd /home           ext4    defaults        0       0`
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
