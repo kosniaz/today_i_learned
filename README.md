@@ -628,6 +628,9 @@ With kubespray and vagrant. Steps
 3. find UUID using `sudo blkid`
 4. add in fstab using the format `UUID=5e524872-fb2d-4b28-ba23-ca7290ba00fd /home           ext4    defaults        0       0`
 
+# Best practices for HTTP GET endpoint: path or query parameters?
+
+Short answer: things that represent an object or resource got to the path (btw I think you can't chain two path parameters in fast api!). For things that are going to change, use query parameters. source [here](https://stackoverflow.com/questions/30967822/when-do-i-use-path-params-vs-query-params-in-a-restful-api)
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
