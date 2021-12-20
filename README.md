@@ -631,6 +631,53 @@ With kubespray and vagrant. Steps
 # Best practices for HTTP GET endpoint: path or query parameters?
 
 Short answer: things that represent an object or resource got to the path (btw I think you can't chain two path parameters in fast api!). For things that are going to change, use query parameters. source [here](https://stackoverflow.com/questions/30967822/when-do-i-use-path-params-vs-query-params-in-a-restful-api)
+
+# when you git commit to main (or master) instead of your working branch
+
+Use patches!
+
+1. run git log to find the changes you want to undo (for example)
+```
+commit 97a9560b441f11f496aee74f1247df26349a14cf
+Author: Kosmas Palios <kpalios@dialoque3.ilsp.gr>
+Date:   Mon Dec 20 18:31:53 2021 +0200
+
+    added handling of jpg response
+
+commit b3ee32310dfb585aeae60ef8539773f715584d45
+Author: Kosmas Palios <kpalios@dialoque3.ilsp.gr>
+Date:   Mon Dec 20 16:35:54 2021 +0200
+
+    added mock endpoint for json retrieval from frontend
+
+commit 1414d7896e4157fb80fd895d34d5aa6f37fedc86
+Merge: 5751d47 5fa9ded
+Author: Kosmas Palios <kpalios@dialoque3.ilsp.gr>
+Date:   Tue Dec 7 18:45:24 2021 +0200
+
+    Merge branch 's4a' of https://gitlab.com/ilsp-spmd-all/dialogue/generic-voice-assistant into s4a
+```
+
+So let's say you have commited the last two commits on the wrong branch. You simply undo them as follows: 
+```
+git diff --binary 97a9560b441f11f496aee74f1247df26349a14cf 1414d7896e4157fb80fd895d34d5aa6f37fedc86 > undo.patch
+```
+
+the binary flag is used if you have commited binary stuff too.
+Next, you can run 
+```
+git apply --check undo.patch
+``` 
+
+To see if anything can go rong and finally run 
+```
+git apply --check undo.patch
+```
+Then check the changes with `git status` and run `git add` to stage the changes of the diff and commit them as a way to restore the previous files. Finally, merge master to your working branch and then proceed to apply the previous diff, but in reverse.
+```
+git apply --reverse undo.patch
+```
+Finally check again the diff. Revise the changes and commit. 
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
