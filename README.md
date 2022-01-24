@@ -694,9 +694,9 @@ B) A backend that actually checks periodically on the endpoints/URL we need to b
 The first part is done by the statuspage, given by atlassian. You want to keep an eye on an endpoint? Define it as a **component** and it will show up 
 in the status page. 
 
-The second part can't be so hard either, but I couldnt do it in one take. Firstly, atlassian's statuspage works with emails to report incidents, e.g. to `theano-<largehashvalue>@atlassian.com`. So I would have to create a service that periodically checks the endpoints and reports by email. This is easy, but I have to configure an email client for the bash, like [here[(https://www.linuxscrew.com/bash-send-email)
+The second part can't be so hard either, but I couldnt do it in one take. Firstly, atlassian's statuspage works with emails to report incidents, e.g. to `theano-<largehashvalue>@atlassian.com`. So I would have to create a service that periodically checks the endpoints and reports by email. This is easy, but I have to configure an email client for the bash, like [here](https://www.linuxscrew.com/bash-send-email)
 
-(ps could [this](https://docs.sendgrid.com/for-developers/sending-email/getting-started-smtp help with the conf?)
+(ps could [this](https://docs.sendgrid.com/for-developers/sending-email/getting-started-smtp help with the conf?))
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
