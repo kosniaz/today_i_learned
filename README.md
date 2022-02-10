@@ -697,6 +697,32 @@ in the status page.
 The second part can't be so hard either, but I couldnt do it in one take. Firstly, atlassian's statuspage works with emails to report incidents, e.g. to `theano-<largehashvalue>@atlassian.com`. So I would have to create a service that periodically checks the endpoints and reports by email. This is easy, but I have to configure an email client for the bash, like [here](https://www.linuxscrew.com/bash-send-email)
 
 (ps could [this](https://docs.sendgrid.com/for-developers/sending-email/getting-started-smtp help with the conf?))
+
+# Making chatbots with Rasa X : Actions server
+
+Rasa X is supposed to empower people to build their own chatbot without having to write a line of code. While this is technically true, there are many cases where an [actions server](https://rasa.com/docs/rasa/actions/) is necessary. [It's not hard to connect an actions server to Rasa X](https://forum.rasa.com/t/how-to-run-custom-action-server-for-rasa-x/46115/2). However, one must achieve some steps:
+
+1. Write a Dockerfile for your actions server [Dockerfile here](https://gitlab.com/ilsp-spmd-all/public/build-your-own-chatbot-base-g1/-/blob/main/actions/Dockerfile)
+2. (skip this step if you're using gitlab) create a gitlab repo and add it as a remote to your local repo [like this](https://articles.assembla.com/en/articles/1136998-how-to-add-a-new-remote-to-your-git-repo)
+3. Add a CICD pipeline to the gitlab repo that builds the actions server and stores it to the repository's own gitlab registry. For example, use [this ci-cd file](https://gitlab.com/ilsp-spmd-all/public/build-your-own-chatbot-base-g1/-/blob/main/.gitlab-ci.yml) from [this gitlab repo](https://gitlab.com/ilsp-spmd-all/public/build-your-own-chatbot-base-g1). To test this step, you can push to the gitlab repo and see the job running from the ci/cd pipeline panel. It will not run if there is not Dockerfile in the actions dir, or if it is invalid. If it runs sucessfully, you will see an image pushed in the container registry of the project (found in the "packages and registries" menu on the left panel)
+
+Finally, log into the server hosting rasa-x and:
+
+1. Find the docker compose file of rasa X, and set the `app` service to point to the image hosted at the gitlab repo, e.g. registry.gitlab.com/ilsp-spmd-all/public/build-your-own-chatbot-base-g1:latest  
+2. Log in to the container repo using a personal access token of the gitlab repo, using this command: `docker login registry.example.com -u <username> -p <token>`
+3. Test that the app service is being pulled, by running docker-compose pull app
+4. Automate the pull and restart process using a dockerized [watchtower](https://containrrr.dev/watchtower/usage-overview/) service as follows:
+
+```
+docker run -d \
+  --name watchtower \
+  -v /home/<user>/.docker/config.json:/config.json \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  containrrr/watchtower registry.gitlab.com/ilsp-spmd-all/public/build-your-own-chatbot-base-g1:latest --debug --interval 60s
+  ```
+where you replace the `registry.gitlab.com/ilsp-spmd-all/public/build-your-own-chatbot-base-g1` image with your own. You may set the interval value to the polling frequency.
+
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
