@@ -698,9 +698,9 @@ The second part can't be so hard either, but I couldnt do it in one take. Firstl
 
 (ps could [this](https://docs.sendgrid.com/for-developers/sending-email/getting-started-smtp help with the conf?))
 
-# Making chatbots with Rasa X : Actions server
+# Building chatbots with Rasa X : Actions server
 
-Rasa X is supposed to empower people to build their own chatbot without having to write a line of code. While this is technically true, there are many cases where an [actions server](https://rasa.com/docs/rasa/actions/) is necessary. [It's not hard to connect an actions server to Rasa X](https://forum.rasa.com/t/how-to-run-custom-action-server-for-rasa-x/46115/2). However, one must achieve some steps:
+Rasa X is supposed to enable people to build their own chatbot without having to write a line of code. While this is technically true, there are many cases where an [actions server](https://rasa.com/docs/rasa/actions/) is necessary. [It's not hard to connect an actions server to Rasa X](https://forum.rasa.com/t/how-to-run-custom-action-server-for-rasa-x/46115/2). However, in order to do so without having to access the Rasa X server you need to set up a couple of things:
 
 1. Write a Dockerfile for your actions server [Dockerfile here](https://gitlab.com/ilsp-spmd-all/public/build-your-own-chatbot-base-g1/-/blob/main/actions/Dockerfile)
 2. (skip this step if you're using gitlab) create a gitlab repo and add it as a remote to your local repo [like this](https://articles.assembla.com/en/articles/1136998-how-to-add-a-new-remote-to-your-git-repo)
