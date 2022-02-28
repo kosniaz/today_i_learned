@@ -2,9 +2,17 @@
 
 ## Questions
 
-* how to expose k8s cluster? 
+#### How to expose k8s cluster? 
 
 Make sure metalLB is installed (kubespray) and define an ingress service that is configured to route traffic to the app's entrypoint service.
+
+First we need to make sure current host has privkey,certifacte files (ask your admin for that, or make your own [here](https://certbot.eff.org/)). Then we need to make a tls secret using said files:
+```
+kubectl create secret tls my-tls-secret \
+  --cert=path/to/cert/file \
+  --key=path/to/key/file
+```
+
 Create an ingress file named `my-ingress.yml`:
 ```
 apiVersion: networking.k8s.io/v1
