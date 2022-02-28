@@ -41,5 +41,5 @@ and finally wait until the ingress gets an ip.
 ```
 $ kubectl get ing
 NAME             CLASS    HOSTS             ADDRESS      PORTS     AGE
-my-ingress       <none>   my-hostname       10.0.20.50   80, 443   10d
+my-ingress       <none>   my-hostname       10.0.10.4   80, 443   10d
 ```
