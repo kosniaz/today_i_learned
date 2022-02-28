@@ -43,3 +43,5 @@ $ kubectl get ing
 NAME             CLASS    HOSTS             ADDRESS      PORTS     AGE
 my-ingress       <none>   my-hostname       10.0.10.4   80, 443   10d
 ```
+
+10.0.10.4 is the address you can use to access the service now. You can now proceed to make NAT rules (IPtables) to forward incoming traffic from the host machine to the ingress service.
