@@ -71,6 +71,11 @@ See all the resource of a resource type:
 kubectl get <resource-type>
 ```
 
+5. kubelet
+6. storageClass
+7. pv
+8. pvc
+
 
 ## To read
 
