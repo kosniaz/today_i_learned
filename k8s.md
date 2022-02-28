@@ -53,3 +53,25 @@ my-ingress       <none>   my-hostname       10.0.10.4   80, 443   10d
 ```
 
 10.0.10.4 is the address you can use to access the service now. You can now proceed to make NAT rules (IPtables) to forward incoming traffic from the host machine to the ingress service.
+
+## Glossary
+
+1. Provisioning (prepare the environment of deployment)
+2. Workloads https://kubernetes.io/docs/concepts/workloads/
+3. Controllers: ReplicaSet, DaemonSet, StatefulSet, Deployment
+4. Resource types, Resource, Object.
+Definitions [here](https://kubernetes.io/docs/reference/using-api/api-concepts/#standard-api-terminology)
+Commands [here](https://www.studytonight.com/post/how-to-list-all-resources-in-a-kubernetes-namespace)
+```
+# see all resource types
+kubectl api-resources
+```
+See all the resource of a resource type:
+```
+kubectl get <resource-type>
+```
+
+
+## To read
+
+* The kubernetes API (server): https://cloud.redhat.com/blog/kubernetes-deep-dive-api-server-part-1
