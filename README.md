@@ -735,8 +735,25 @@ can be used to playback the session, as follows:
 scriptreplay -t <time_log> <commands_log>
 ```
 
-If you don't want to use live replay, you can just `cat` the command log. 
+If you don't want to use live replay, you can just `cat` the command log.
 
+# How to quickly make a tutorial with terminal commands improvment
+
+Now just add this function to your bashrc
+
+```
+rec () {
+  c=$(date "+%d.%m.%Y_%H.%M")
+  if [ -z "$1" ]; then
+    echo "Recording in the session_recordings dir"
+    script -t/home/$USER/session_recordings/script_${c}_time.log -a /home/$USER/session_recordings/script_${c}.log
+  else
+    echo "Recording in the session_recordings/$1 dir"
+    mkdir -p /home/$USER/session_recordings/$1
+    script -t/home/$USER/session_recordings/$1/script_${c}_time.log -a /home/$USER/session_recordings/$1/script_${c}.log
+  fi
+}
+```
 
 # Next up
 
