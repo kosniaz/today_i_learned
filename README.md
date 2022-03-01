@@ -724,7 +724,19 @@ where you replace the `registry.gitlab.com/ilsp-spmd-all/public/build-your-own-c
 
 # How to quickly make a tutorial with terminal commands, avoiding the screencast solution
 
-https://ostechnix.com/how-to-replay-the-recorded-terminal-sessions-using-scriptreplay-command/
+You can use the script and scriptreplay commands. Add this line to your .${SHELL}rc file:
+```
+alias rec='c=$(date "+%d.%m.%Y_%H.%M") && script -t/home/$USER/session_recs/script_$c_time.log -a /home/$USER/session_recs/script_$c.log'
+```
+
+Now when you can type `rec` on the terminal, run some commands, and type `exit`, this will create a pair of files in the `session_recs` folder, a commands log and time log. These
+can be used to playback the session, as follows:
+```
+scriptreplay -t <time_log> <commands_log>
+```
+
+If you don't want to use live replay, you can just `cat` the command log. 
+
 
 # Next up
 
