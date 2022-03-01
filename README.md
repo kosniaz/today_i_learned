@@ -722,6 +722,9 @@ docker run -d \
   ```
 where you replace the `registry.gitlab.com/ilsp-spmd-all/public/build-your-own-chatbot-base-g1` image with your own. You may set the interval value to the polling frequency.
 
+# How to quickly make a tutorial with terminal commands, avoiding the screencast solution
+
+https://ostechnix.com/how-to-replay-the-recorded-terminal-sessions-using-scriptreplay-command/
 
 # Next up
 
