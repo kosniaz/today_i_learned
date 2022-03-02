@@ -75,6 +75,7 @@ kubectl get <resource-type>
 6. storageClass
 7. pv
 8. pvc
+9. manifest: the yaml I use to instantiate a deployment, pv, service, ingress etc
 
 
 ## To read
