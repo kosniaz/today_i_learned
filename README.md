@@ -737,8 +737,7 @@ scriptreplay -t <time_log> <commands_log>
 
 If you don't want to use live replay, you can just `cat` the command log.
 
-# How to quickly make a tutorial with terminal commands improvment
-
+# How to quickly make a tutorial with terminal commands pt2: making a rec function
 Now just add this function to your bashrc
 
 ```
@@ -755,6 +754,29 @@ rec () {
 }
 ```
 
+# How to quickly make a tutorial with terminal commands pt3: adding a replay function
+```
+replay () {
+  # takes dir as first argument
+  # dir must be the dir filled by rec
+  # and possibly edited by script_time_shortener.py
+  directory= $1
+  speed=$2
+  ls $1
+  if [ -z $1 ]; then
+    echo "no folder given"
+    return 1
+  else
+    files=`ls $1/*no_delays`
+    if [ -z $files ]; then
+      echo "there is no time-reduced time file, proceedign with the normal one"
+      scriptreplay -t $1/script_*time* $1/script_*?[0-9].log $speed
+    else
+      scriptreplay -t $1/*no_delays $1/script_*?[0-9].log $speed
+    fi
+  fi
+}
+```
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
