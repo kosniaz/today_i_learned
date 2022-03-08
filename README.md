@@ -778,7 +778,7 @@ replay () {
 }
 ```
 
-## What is npm, webpack, babel and what is their relation with react?
+# What is npm, webpack, babel and what is their relation with react?
 
 check what is installed in the current folder:
 ```
@@ -786,6 +786,12 @@ npm list
 ```
 check this: https://medium.com/@chrislewisdev/react-without-npm-babel-or-webpack-1e9a6049714
 
+# tmux detach connected user
+
+(credits to [dimastro](https://github.com/dimastro))
+
+You can actually detach other people from a tmux session, with `<prefix> D`. The list that opens up shows all connected clients, and the one you choose is detached. 
+Don't worry if you work on your own - [someone said it's fun to detach yourself too](https://superuser.com/questions/610608/detach-the-other-tmux-clients#comment755816_610682).
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
