@@ -777,6 +777,11 @@ replay () {
   fi
 }
 ```
+
+## What is npm, webpack, babel and what is their relation with react?
+
+check this: https://medium.com/@chrislewisdev/react-without-npm-babel-or-webpack-1e9a6049714
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
