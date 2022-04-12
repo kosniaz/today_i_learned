@@ -792,6 +792,54 @@ check this: https://medium.com/@chrislewisdev/react-without-npm-babel-or-webpack
 
 You can actually detach other people from a tmux session, with `<prefix> D`. The list that opens up shows all connected clients, and the one you choose is detached. 
 Don't worry if you work on your own - [someone said it's fun to detach yourself too](https://superuser.com/questions/610608/detach-the-other-tmux-clients#comment755816_610682).
+
+# using pybind to expose C++ functions to python code
+
+1. You need to compile the C++ code using cmake-make
+2. Run built C++ executable to ensure it works
+3. Write C++ function that uses the pybind C++ lib, as the following example
+```
+pybind11::bytes
+  greeklish2greek(char *input)
+  {
+      void *cpsz = greeklish_convert(input);
+      const char *converted = greeklish_get_text(cpsz);
+      char out[2048] = { "\0" };
+      strcpy(out, (char *)converted);
+      greeklish_release_handle(cpsz);
+      return pybind11::bytes(out);
+  }
+```
+4. Define the python module in the same c++ file. This section is extended as you expose more methods of the same lib
+```
+PYBIND11_MODULE(ag2m, m)
+  {
+      m.doc() = "Greeklish to greek conversion bindings";
+  
+      m.def("greeklish2greek", &greeklish2greek, "Convert a string in greeklish to greek");
+      m.def("greek2greeklish", &greek2greeklish, "Convert a string in greek to greeklish");
+      m.def("init", &init, "Initialize greeklish to greek converter");
+      m.def("finish", &finish, "finalize greeklish to greek converter");
+  }
+```
+5. Make a setup.py like [this one](setup_py_example_for_pybind.py) for your "external" module, which uses the new pybind
+
+6. Add an 'API' class to your external module, as follows:
+```
+import ag2m
+class GreeklishConverter(object):
+      def __init__(self):
+          ag2m.init()
+  
+      def __del__(self):
+          ag2m.finish()
+      def grl2g(self, greeklish):
+          return ag2m.greeklish2greek(greeklish).decode("iso-8859-7")
+```
+7. Import said class in the `__init__.py` of your module
+8. pip install the shit out if it and you can use it now!
+
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
