@@ -839,6 +839,12 @@ class GreeklishConverter(object):
 7. Import said class in the `__init__.py` of your module
 8. pip install the shit out if it and you can use it now!
 
+# Autocomplete vim (default in vim >8)
+Try these keys:
+
+1. ctrl-n
+2. ctrl-p
+
 
 # Next up
 
