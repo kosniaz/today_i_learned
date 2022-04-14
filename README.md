@@ -845,6 +845,24 @@ Try these keys:
 1. ctrl-n
 2. ctrl-p
 
+# When you are running vim and you want to :q but you :Q instead
+
+Try adding these lines in your `.vimrc` file:
+```
+fun! SetupCommandAlias(from, to)
+  exec 'cnoreabbrev <expr> '.a:from
+        \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfun
+call SetupCommandAlias("Q","q")
+call SetupCommandAlias("W","w")
+call SetupCommandAlias("Wq","wq")
+call SetupCommandAlias("sp","set paste")
+
+```
+The first 5 lines define a function that sets command aliases.
+Then we use the function to set aliases at will, and save these precious seconds of your life 
+for something better :)
 
 # Next up
 
