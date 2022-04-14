@@ -864,6 +864,8 @@ The first 5 lines define a function that sets command aliases.
 Then we use the function to set aliases at will, and save these precious seconds of your life 
 for something better :)
 
+source: https://stackoverflow.com/questions/3878692/how-to-create-an-alias-for-a-command-in-vim
+
 # Next up
 
 * gunicorn, and sockets, and file ownerships. Also, DNS stuff (from first meeting with Manos and the rest of the team)
