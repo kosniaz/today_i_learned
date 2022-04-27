@@ -1,6 +1,88 @@
 # Today I Learned: tutorials/memos/logs
 
-## 
+## Ant Design and UMI
+
+Ant design. 
+
+I tried to learn this new ant design thing. But I had a problem. The [usage section](https://github.com/ant-design/ant-design-pro/#use-bash) starts with 
+
+```
+npm create umi
+```
+
+By the way, if you run  `npm init && npm create umi` fails complaining for the nonempty dir. Then I run `npm crete umi` and I get dependency issues. What the heck, I have nothing else installed there. However, it gets solved if I first `npm install create-umi` and I get lots of files in my directory. I check app.js and it is full of stuff I've never used before. Why is React JS so different everytime?
+
+A sample of app.tsx
+```
+kpalios@dialoque3:~/workspace/planv/planvt$ cat src/app.tsx                                                                                                    [67/662]
+import type { Settings as LayoutSettings } from '@ant-design/pro-layout';                                                                                              
+import { SettingDrawer } from '@ant-design/pro-layout';                                                                                                                
+import { PageLoading } from '@ant-design/pro-layout';                                                                                                                  
+import type { RunTimeLayoutConfig } from 'umi';                                                                                                                        
+import { history, Link } from 'umi';                                                                                                                                   
+import RightContent from '@/components/RightContent';                                                                                                                  
+import Footer from '@/components/Footer';                                                                                                                              
+import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';                                                                                       
+import { BookOutlined, LinkOutlined } from '@ant-design/icons';                                                                                                        
+import defaultSettings from '../config/defaultSettings';                                                                                                               
+                                                                                                                                                                       
+const isDev = process.env.NODE_ENV === 'development';                                                                                                                  
+const loginPath = '/user/login';                                                                                                                                       
+                                                                                                                                                                       
+/** 获取用户信息比较慢的时候会展示一个 loading */                                                                                                                      
+export const initialStateConfig = {                                                                                                                                    
+  loading: <PageLoading />,                                                                                                                                            
+};                                                                                                                                                                     
+                                                                                                                                                                       
+/**                                                                                                                                                                    
+ * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state                                                                                                          
+ * */                                                                                                                                                                  
+export async function getInitialState(): Promise<{                                                                                                                     
+  settings?: Partial<LayoutSettings>;                                                                                                                                  
+  currentUser?: API.CurrentUser;                                                                                                                                       
+  loading?: boolean;                                                                                                                                                   
+  fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+}> {            
+  const fetchUserInfo = async () => {
+    try {                                                              
+      const msg = await queryCurrentUser();
+      return msg.data;               
+    } catch (error) {
+      history.push(loginPath);         
+    }                       
+    return undefined;                
+  };              
+  // 如果不是登录页面，执行
+  if (history.location.pathname !== loginPath) {
+    const currentUser = await fetchUserInfo();
+    return {
+      fetchUserInfo,
+            currentUser,
+      settings: defaultSettings,
+    };
+  }
+  return {
+    fetchUserInfo,
+    settings: defaultSettings,
+  };
+}
+```
+
+Then I compared this initial project to the other ant design projects in youtube video tutorials, but there was no sign of any weird typescript whatsoever.
+
+Then I realized that 
+```
+antd is a library
+```
+and 
+```
+umi is an entire framework
+```
+
+### The umi framework
+
+This is a completely independent thing, but coincidentally made by the same people who made ant. They have a [cute logo though](https://umijs.org/)
+
 
 ## A minimalist Vim plugin manager
 
