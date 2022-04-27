@@ -1,5 +1,10 @@
 # Today I Learned: tutorials/memos/logs
 
+## Vim plugin manager 
+
+(e.g. for typescript syntax) https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
+
+
 ## Pull requests
 
 For a pull request, you:
@@ -580,6 +585,7 @@ So I ended up using a global dict of `{client_id : last_turn_where_validation_wa
 
 # setting up kubernetes for Theano pt1
 
+
 ### Questions 
 
 1. which kubernetes distro to use? e.g. minikube, k3s, microk8s, kind (good with docker images!)
@@ -865,6 +871,8 @@ Then we use the function to set aliases at will, and save these precious seconds
 for something better :)
 
 source: https://stackoverflow.com/questions/3878692/how-to-create-an-alias-for-a-command-in-vim
+
+
 
 # Next up
 
