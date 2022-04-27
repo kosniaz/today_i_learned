@@ -1,8 +1,14 @@
 # Today I Learned: tutorials/memos/logs
 
-## Vim plugin manager 
+## 
 
-(e.g. for typescript syntax) https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
+## A minimalist Vim plugin manager
+
+Named vim-plug. [Very easy usage](https://github.com/junegunn/vim-plug)
+
+I used it to install typescript syntax plugins. [source](https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim)
+
+
 
 
 ## Pull requests
