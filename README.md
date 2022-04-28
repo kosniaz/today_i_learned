@@ -1,5 +1,15 @@
 # Today I Learned: tutorials/memos/logs
 
+## Ant Design pt.2 
+
+Ant has loads of components, ready to use to make beautiful dashboards. It also provides a simple Row & Column layout to stack all your components. 
+A good example is [this repo](https://github.com/Borja95/dashboardAntDesign) (source is [this youtube video-tutorial](https://www.youtube.com/watch?v=824rRS_bRYI)
+
+After having created a basic layout for your components, you can make good use of ant by visiting its super detailed docs (with examples!), as in [this example here](https://ant.design/components/table/)
+
+p.s. Reminder of padding and margin here https://blog.hubspot.com/website/css-margin-vs-padding
+p.s.2 flexbox is nice too
+
 ## Ant Design and UMI
 
 Ant design. 
