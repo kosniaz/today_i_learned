@@ -1,5 +1,13 @@
 # Today I Learned: tutorials/memos/logs
 
+## argparse: options vs positional parameters
+
+the only difference is adding a double dash to the name. E.g.
+```
+parser.add_argument("csv", type=str, help="path to csv file") # positional 
+parser.add_argument("--tts-host", type=str, help="tts server hostname") # option(al) 
+```
+
 ## ripgrep "respects gitignore"
 
 rg doesn't search in files ignored by gitignore. To avoid this, use ` --no-ignore`
