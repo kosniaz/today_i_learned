@@ -1,5 +1,9 @@
 # Today I Learned: tutorials/memos/logs
 
+## ripgrep "respects gitignore"
+
+rg doesn't search in files ignored by gitignore. To avoid this, use ` --no-ignore`
+
 ## Ant Design pt.2 
 
 Ant has loads of components, ready to use to make beautiful dashboards. It also provides a simple Row & Column layout to stack all your components. 
