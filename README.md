@@ -67,6 +67,40 @@ Just change `values.yml` to include the following in the rabbitmq section:
 
 and expose with port forwarding, as shown in the previous section. It can't be accessed directly, because it is not a `LoadBalancer` type service.
 
+#### Upgrade with Helm (and a common error encountered)
+
+```
+helm upgrade rasa-x rasa-x/rasa-x -n <your-namespace> --values values.yaml
+```
+
+Possible error with the default values:
+
+```
+kubaras@chomsky ➜ helm-deployment helm upgrade rasa-x rasa-x/rasa-x -n <your-namespace> --values values.yaml                                           [6/1974]
+Error: UPGRADE FAILED: execution error at (rasa-x/charts/rabbitmq/templates/NOTES.txt:170:4):                                                                          
+PASSWORDS ERROR: You must provide your current passwords when upgrading the release.                                                                                   
+                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.                                   
+                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart
+-releases                                                                                                                                                              
+                                                                                                                                                                       
+    'auth.erlangCookie' must not be empty, please add '--set auth.erlangCookie=$RABBITMQ_ERLANG_COOKIE' to the command. To get the current value:
+
+        export RABBITMQ_ERLANG_COOKIE=$(kubectl get secret --namespace "nbg-contributors" rasa-x-rabbit -o jsonpath="{.data.rabbitmq-erlang-cookie}" | base64 --decode$
+
+```
+
+Solution: Make sure this is inside the `values.yaml`
+```
+rabbitmq:
+  enabled: true
+  install: true
+  auth:
+    password: <specify>
+    erlangCookie: <specify>
+```
+
+[source](https://forum.rasa.com/t/cannot-upgrade-deployment-in-kubernates/50748/3)
+
 
 ## argparse: options vs positional parameters
 
