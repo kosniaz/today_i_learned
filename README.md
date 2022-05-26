@@ -1,5 +1,73 @@
 # Today I Learned: tutorials/memos/logs
 
+## Rasa X on kuberenetes
+
+#### Installation
+
+It's easy to install via Helm, as explained in [the docs](https://rasa.com/docs/rasa-x/). All the configuration is inside `values.yaml`. Steps are:
+```
+helm repo add rasa-x https://rasahq.github.io/rasa-x-helm
+helm repo update
+helm install --values values.yaml rasa-x rasa-x/rasa-x \
+    --namespace <your-namespace>
+```
+
+```
+kosniaz@stonehedge ➜  rasax git: kubectl get svc -n my-namespace
+NAME                                   TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                                 AGE
+rasa-x-app                             ClusterIP      10.132.52.190   <none>        5055/TCP,80/TCP                         2m28s
+rasa-x-db-migration-service-headless   ClusterIP      None            <none>        8000/TCP                                2m28s
+rasa-x-duckling                        ClusterIP      10.132.34.210   <none>        8000/TCP                                2m28s
+rasa-x-nginx                           LoadBalancer   10.132.99.22    10.90.24.20   8000:31628/TCP                          2m28s
+rasa-x-postgresql                      ClusterIP      10.132.42.12    <none>        5432/TCP                                2m28s
+rasa-x-postgresql-headless             ClusterIP      None            <none>        5432/TCP                                2m28s
+rasa-x-rabbit                          ClusterIP      10.132.42.21    <none>        5672/TCP,4369/TCP,25672/TCP,15672/TCP   2m28s
+rasa-x-rabbit-headless                 ClusterIP      None            <none>        4369/TCP,5672/TCP,25672/TCP,15672/TCP   2m28s
+rasa-x-rasa-worker                     ClusterIP      10.132.91.210   <none>        5005/TCP                                2m28s
+rasa-x-rasa-x                          ClusterIP      10.132.21.231   <none>        5002/TCP                                2m28s
+rasa-x-redis-headless                  ClusterIP      None            <none>        6379/TCP                                2m28s
+rasa-x-redis-master                    ClusterIP      10.132.42.230   <none>        6379/TCP                                2m28s
+```
+#### How to expose
+
+    1. port forwarding with k8s: 
+    ```
+    kubectl port-forward -n <your-namespace> service/rasa-x-nginx --address 0.0.0.0 <your-port>:8080
+    ```
+    or 
+    2. use a local nginx installation, by adding the following in the nginx.conf (and then `sudo systemctl reload nginx`)
+    
+    ```
+    http {
+    
+    server {
+        listen <your-port> ssl;
+        server_name <your-hostname>;
+
+        ssl_certificate /etc/letsencrypt/<path-to-your-keyfile>;
+        ssl_certificate_key /etc/letsencrypt/<path-to-your-certfile>;
+
+        location / {
+            proxy_pass http://<external-ip-of-svc>:8000;
+        }
+     }
+     }
+    ```
+    
+    
+#### How to use the rabbit mq inside:
+
+Just change `values.yml` to include the following in the rabbitmq section:
+```
+    # service specifies settings for exposing rabbit to other services
+    service:
+        # port on which rabbitmq is exposed to Rasa
+        port: 5672
+```
+
+and expose with port forwarding, as shown in the previous section. It can't be accessed directly, because it is not a `LoadBalancer` type service.
+
+
 ## argparse: options vs positional parameters
 
 the only difference is adding a double dash to the name. E.g.
