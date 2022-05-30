@@ -1,8 +1,109 @@
 # Kubernetes learn sheet
 
-## Questions
+## Rasa X on kuberenetes
 
-#### How to expose k8s cluster? 
+#### Installation
+
+It's easy to install via Helm, as explained in [the docs](https://rasa.com/docs/rasa-x/). All the configuration is inside `values.yaml`. Steps are:
+```
+helm repo add rasa-x https://rasahq.github.io/rasa-x-helm
+helm repo update
+helm install --values values.yaml rasa-x rasa-x/rasa-x \
+    --namespace <your-namespace>
+```
+
+```
+kosniaz@stonehedge ➜  rasax git: kubectl get svc -n my-namespace
+NAME                                   TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                                 AGE
+rasa-x-app                             ClusterIP      10.132.52.190   <none>        5055/TCP,80/TCP                         2m28s
+rasa-x-db-migration-service-headless   ClusterIP      None            <none>        8000/TCP                                2m28s
+rasa-x-duckling                        ClusterIP      10.132.34.210   <none>        8000/TCP                                2m28s
+rasa-x-nginx                           LoadBalancer   10.132.99.22    10.90.24.20   8000:31628/TCP                          2m28s
+rasa-x-postgresql                      ClusterIP      10.132.42.12    <none>        5432/TCP                                2m28s
+rasa-x-postgresql-headless             ClusterIP      None            <none>        5432/TCP                                2m28s
+rasa-x-rabbit                          ClusterIP      10.132.42.21    <none>        5672/TCP,4369/TCP,25672/TCP,15672/TCP   2m28s
+rasa-x-rabbit-headless                 ClusterIP      None            <none>        4369/TCP,5672/TCP,25672/TCP,15672/TCP   2m28s
+rasa-x-rasa-worker                     ClusterIP      10.132.91.210   <none>        5005/TCP                                2m28s
+rasa-x-rasa-x                          ClusterIP      10.132.21.231   <none>        5002/TCP                                2m28s
+rasa-x-redis-headless                  ClusterIP      None            <none>        6379/TCP                                2m28s
+rasa-x-redis-master                    ClusterIP      10.132.42.230   <none>        6379/TCP                                2m28s
+```
+#### How to expose
+
+    1. port forwarding with k8s: 
+    ```
+    kubectl port-forward -n <your-namespace> service/rasa-x-nginx --address 0.0.0.0 <your-port>:8080
+    ```
+    or 
+    2. use a local nginx installation, by adding the following in the nginx.conf (and then `sudo systemctl reload nginx`)
+    
+    ```
+    http {
+    
+    server {
+        listen <your-port> ssl;
+        server_name <your-hostname>;
+
+        ssl_certificate /etc/letsencrypt/<path-to-your-keyfile>;
+        ssl_certificate_key /etc/letsencrypt/<path-to-your-certfile>;
+
+        location / {
+            proxy_pass http://<external-ip-of-svc>:8000;
+        }
+     }
+     }
+    ```
+    
+    
+#### How to use the rabbit mq inside:
+
+Just change `values.yml` to include the following in the rabbitmq section:
+```
+    # service specifies settings for exposing rabbit to other services
+    service:
+        # port on which rabbitmq is exposed to Rasa
+        port: 5672
+```
+
+and expose with port forwarding, as shown in the previous section. It can't be accessed directly, because it is not a `LoadBalancer` type service.
+
+#### Upgrade with Helm (and a common error encountered)
+
+```
+helm upgrade rasa-x rasa-x/rasa-x -n <your-namespace> --values values.yaml
+```
+
+Possible error with the default values:
+
+```
+kubaras@chomsky ➜ helm-deployment helm upgrade rasa-x rasa-x/rasa-x -n <your-namespace> --values values.yaml                                           [6/1974]
+Error: UPGRADE FAILED: execution error at (rasa-x/charts/rabbitmq/templates/NOTES.txt:170:4):                                                                          
+PASSWORDS ERROR: You must provide your current passwords when upgrading the release.                                                                                   
+                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.                                   
+                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart
+-releases                                                                                                                                                              
+                                                                                                                                                                       
+    'auth.erlangCookie' must not be empty, please add '--set auth.erlangCookie=$RABBITMQ_ERLANG_COOKIE' to the command. To get the current value:
+
+        export RABBITMQ_ERLANG_COOKIE=$(kubectl get secret --namespace "nbg-contributors" rasa-x-rabbit -o jsonpath="{.data.rabbitmq-erlang-cookie}" | base64 --decode$
+
+```
+
+Solution: Make sure this is inside the `values.yaml`
+```
+rabbitmq:
+  enabled: true
+  install: true
+  auth:
+    password: <specify>
+    erlangCookie: <specify>
+```
+
+[source](https://forum.rasa.com/t/cannot-upgrade-deployment-in-kubernates/50748/3)
+
+
+
+## How to expose k8s cluster? 
 
 Make sure metalLB is installed (kubespray) and define an ingress service that is configured to route traffic to the app's entrypoint service.
 
@@ -54,9 +155,9 @@ my-ingress       <none>   my-hostname       10.0.10.4   80, 443   10d
 
 10.0.10.4 is the address you can use to access the service now. You can now proceed to make NAT rules (IPtables) to forward incoming traffic from the host machine to the ingress service.
 
-# How I set up a static file server for deployment in our cluster 
+## How I set up a static file server for deployment in our cluster 
 
-# Static fs deployment
+### Static fs deployment
 
 
 This is an attempt to deploy a service on our cluster, from zero to deployment with storage to an nfs PV.
@@ -78,7 +179,7 @@ This is an attempt to deploy a service on our cluster, from zero to deployment w
  3. https://stackoverflow.com/questions/59844622/ingress-configuration-for-k8s-in-different-namespaces
 
 
-## Your app's context
+### Your app's context
 
 1. Check the namespaces available:
 ```
@@ -154,7 +255,7 @@ kubectl apply -f kosmas-pv.yaml
 kubectl get pv
 ```
 
-## Create the PVC that will be used by our app's deployment to claim storage in the PV
+### Create the PVC that will be used by our app's deployment to claim storage in the PV
 
 1. Simply edit this template, used by the rasa-actions service:
 ```
@@ -247,7 +348,7 @@ Finally, see the debug messages of the pods launching
 kubectl describe pods
 ```
 
-## Create the service and test locally with port-forwarding
+### Create the service and test locally with port-forwarding
 
 Create a simple loadBalancer service that will expose your deployment.
 Otherwise it cannot be accessed, except through the pods themselves (but we don't want to expose the pods themselves,
@@ -312,7 +413,7 @@ status:
 ```
 
 
-## Glossary
+### Glossary
 
 1. Provisioning (prepare the environment of deployment)
 2. Workloads https://kubernetes.io/docs/concepts/workloads/
