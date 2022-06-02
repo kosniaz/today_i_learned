@@ -288,7 +288,7 @@ Current format:
 ```
 Steps to solve:
 1. `:%s/    - user:/  - user:/g`
-2. `:%s/  - \(intent: \._\{-}\)\n  \(- user:\._\{-}\n\._\{-}\)/  \2\r  \1/g`
+2. `:%s/  - \(intent: \_.\{-}\)\n  \(- user:\_.\{-}\n\_.\{-}\)/  \2\r  \1/g`
 3. Clean up
 
 # Displaying unicode characters from their hex representation using json!
