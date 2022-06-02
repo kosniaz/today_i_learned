@@ -448,14 +448,14 @@ But now I will never find why I had these networks in the first place.
 
 # Fast API is actually super fast for http
 
-# tmux plugins are nice, but still they will not store history per pane
-
-Try them out yourself. Save your tmux environment and load it, all sessions, windows, panes, and also the pane contents. However history is not kept separate for every pane (would be nice though). Steps:
+# Install tmux resurrect  
 
 1. Install tmux plugin manager https://github.com/tmux-plugins/tpm (check README.md)
 2. Install tmux ressurect https://github.com/tmux-plugins/tmux-resurrect (check README.md)
 3. Install tmux continuum if you want autosave, autoload https://github.com/tmux-plugins/tmux-continuum (check README.md)
 4. Set storing pane contents https://github.com/tmux-plugins/tmux-resurrect/blob/master/docs/restoring_pane_contents.md
+
+While tehse tmux plugins are nice, they will not store command history per pane.
 
 ## Bonus, setting max scroll buffer, and clearing it (using key bindings)
 
