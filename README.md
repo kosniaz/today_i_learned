@@ -1,5 +1,38 @@
 # Today I Learned: tutorials/memos/logs
 
+
+## docker engine has limited subnets for its network pool
+
+By default, docker networks are created and assigned a subnet each.
+The subnets created are drawn from the 172.17.0.0/16-172.31.0.0/16 subnet range, i.e.:
+```
+172.17.0.0/16
+172.18.0.0/16
+172.19.0.0/16
+.
+.
+.
+172.31.0.0/16
+```
+
+So we have 15 networks. What happens if we create more that 15? Docker starts drawing from another subnet pool:
+192.168.0.0/20-192.168.240/20. That is
+```
+192.168.0.0/20
+192.168.16.0/20
+192.168.32.0/20
+192.168.48.0/20
+192.168.64.0/20
+.
+.
+192.168.240.0/20
+```
+
+**This has caused trouble and frustration to a number of people**. Because when I make a lot of networks, and docker starts assigning them subnets from the 192.168.X.0 ones, my computer is blocked from the servers network, because its VPN address happens to be in the 192.168.0.0/20 subnet too. 
+
+How to avoid this? The solution is to describe the subnets to be used in docker's `/etc/docker/daemon.json` file, as cited [here](https://www.lullabot.com/articles/fixing-docker-and-vpn-ip-address-conflicts) and [here](https://serverfault.com/questions/916941/configuring-docker-to-not-use-the-172-17-0-0-range/936255#936255). 
+
+However, to do this, you need to delete all existing networks, stop all containers and restart the docker daemon.
 ## argparse: options vs positional parameters
 
 the only difference is adding a double dash to the name. E.g.
