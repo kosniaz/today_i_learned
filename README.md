@@ -28,7 +28,9 @@ So we have 15 networks. What happens if we create more that 15? Docker starts dr
 192.168.240.0/20
 ```
 
-**This has caused trouble and frustration to a number of people**. Because when I make a lot of networks, and docker starts assigning them subnets from the 192.168.X.0 ones, my computer is blocked from the servers network, because its VPN address happens to be in the 192.168.0.0/20 subnet too. 
+So here we have 16 more subnets available. What happens when we surpass this limit too? I don't know. I think there's more, although up to a point, you could have 31 automatically assigned-to-networks subnets.
+
+Anyway, this post was started because a big frustration: until I make the first 15 networks, nothing bad happens. But when I mak e more, docker starts assigning them subnets from the 192.168.X.0 range, **my computer is ignored from the server's network**, because its VPN address happens to be in the 192.168.0.0/20 subnet too. 
 
 How to avoid this? The solution is to describe the subnets to be used in docker's `/etc/docker/daemon.json` file, as cited [here](https://www.lullabot.com/articles/fixing-docker-and-vpn-ip-address-conflicts) and [here](https://serverfault.com/questions/916941/configuring-docker-to-not-use-the-172-17-0-0-range/936255#936255). 
 
