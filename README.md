@@ -2,15 +2,19 @@
 
 ## ubuntu freezing for 10-20 seconds 
 
-So for some time, now and then, I had this weird issue. My work linuxbox would not respond to anything, apart from mouse movement (click didn't change a thing). My first impression was that it was a memory or disk thing. But today I checkd that memory usage and hard disk capacity were OK (as I was about 10 minutes into running it). At first I thought it was a firefox thing, as it happend when I was running firefox. Then I learned that I could possibly reclaim control of the system by hitting alt and sysrq (print screen) + r. But that didn't work either. Surprisingly alt-ctrl-F1 worked well: I could logout and login to my user again, but all my GUI was still frozen even after that. What was the issue? I checked dmesg, nothing really interesting here. Just a silly error a number of times:
+So for some time, now and then, I had this weird issue. Out of the blue, my work linuxbox would not respond to anything for 10-20 seconds, apart from mouse movement (even tho clicking didn't change a thing). My first impression was that it was a memory or disk thing. Today it happened again. I saw that memory usage and hard disk capacity were OK (I was just 5 minutes after booting). At first I thought it was a firefox thing, as it happend when I was running firefox.  Switchd to chrome then. Then it happened agian.
+
+At that point I searched a bit more, even though that meant losing precious time. I learned that in such cases, I can possibly reclaim control of the system by hitting alt and sysrq (print screen) + r. Tried, but that didn't work. Surprisingly alt-ctrl-F1 worked: I could logout and login to my user again, but all my GUI was still frozen even after that. What was the issue? I checked dmesg, nothing really interesting there. Just a silly error a number of times:
 ```
 $ dmesg
 ...
 usb_set_interface failed (-110)
+usb_set_interface failed (-110)
+usb_set_interface failed (-110)
 ...
 ```
 
-When I googled it I found this weird result: [E-MU 0202 USB - freezes kernel / USB subsystem - kernel 4.15.15](https://bbs.archlinux.org/viewtopic.php?id=236356) I checked my usb ports, and removed that weird webcam I had (unsuccessfully) tried to used some days ago. 
+When I googled it I found this weird result: [E-MU 0202 USB - freezes kernel / USB subsystem - kernel 4.15.15](https://bbs.archlinux.org/viewtopic.php?id=236356). Could this be it!? I checked my usb ports, and removed that weird webcam I had (unsuccessfully) tried to used some days ago. 
 ```
 It was the webcam
 ```
