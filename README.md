@@ -1,5 +1,8 @@
 # Today I Learned: tutorials/memos/logs
 
+## ubuntu freezing for 10-20 seconds 
+
+So for some time, now and then, I had this weird issue. My work linuxbox would not respond to anything, apart from mouse movement (click didn't change a thing). My first impression was that it was a memory or disk thing. But today I checkd that memory usage and hard disk capacity were OK (as I was about 10 minutes into running it). At first I thought it was a firefox thing, as it happend when I was running firefox. Then I learned that I could possibly reclaim control of the system by hitting alt and sysrq (print screen) + r. But that didn't work either. Surprisingly 
 
 ## docker engine has limited subnets for its network pool
 
