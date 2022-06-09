@@ -1,5 +1,13 @@
 # Today I Learned: tutorials/memos/logs
 
+## shortest url of site for pinging
+
+ping g.cn 
+
+[source](https://www.gawker.com/318368/the-shortest-domain-name-ever)
+
+## need to check on my burnout :/
+
 ## ubuntu freezing for 10-20 seconds 
 
 So for some time, now and then, I had this weird issue. Out of the blue, my work linuxbox would not respond to anything for 10-20 seconds, apart from mouse movement (even tho clicking didn't change a thing). My first impression was that it was a memory or disk thing. Today it happened again. I saw that memory usage and hard disk capacity were OK (I was just 5 minutes after booting). At first I thought it was a firefox thing, as it happend when I was running firefox.  Switchd to chrome then. Then it happened agian.
