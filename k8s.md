@@ -1,5 +1,13 @@
 # Kubernetes TIL
 
+## tracking down bugs on k8s logs
+
+1. Use --timestamp in docker logs command
+2. export to file [you can even do this with tmux's buffer](https://getridbug.com/unix-linux/write-all-tmux-scrollback-to-a-file/)
+3. search for the timestamps where the (possibly recurring) bug emerged with grep: `grep <Weird_error_message> <log_file>`
+4. isolate the log lines that happened in the exact second(s) of every incident using vim and adding a delimiter (eg  bug start)
+5. separate the log incident using the delimiter with awk as in [here](https://stackoverflow.com/questions/1825745/split-file-based-on-string-delimiter-in-bash-how) 
+
 ## Rasa X on kuberenetes
 
 #### Installation
