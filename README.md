@@ -1,5 +1,17 @@
 # Today I Learned: tutorials/memos/logs
 
+## find out your ubuntu version and desktop
+```
+kosmas@kosmasbox:~$ echo $XDG_CURRENT_DESKTOP
+ubuntu:GNOME
+kosmas@kosmasbox:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 18.04.6 LTS
+Release:	18.04
+Codename:	bionic
+```
+
 ## shortest url of site for pinging
 
 ping g.cn 
