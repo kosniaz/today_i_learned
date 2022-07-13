@@ -1,5 +1,15 @@
 # Today I Learned: tutorials/memos/logs
 
+## Kill docker container from within
+
+
+normally you can't kill PID 1 a docker container from the inside. But my mate gbastas did find this:
+```
+kill -INT 1
+```
+
+that was it.
+
 ## find out your ubuntu version and desktop
 ```
 kosmas@kosmasbox:~$ echo $XDG_CURRENT_DESKTOP
