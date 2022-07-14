@@ -1,5 +1,10 @@
 # Today I Learned: tutorials/memos/logs
 
+## sende test datagram
+
+ echo "This is my data" > /dev/udp/compute.ilsp.gr/5060
+
+
 ## Kill docker container from within
 
 
