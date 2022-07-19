@@ -1,9 +1,15 @@
 # Today I Learned: tutorials/memos/logs
 
-## sende test datagram
+## search for text inside the packets in wireshark
 
- echo "This is my data" > /dev/udp/compute.ilsp.gr/5060
+To find a string within a packet, click on Edit > Find Packet. Under "Find By:" select "string" and enter your search string in the text entry box. You'll probably want to leave "Case sensitive" unchecked. Under "Search in", the default is "Packet list" but that will only find a string that appears in the Info column of the Packet List pane, which is the one-line-per-packet summary view. There is a lot more information in most packets than what appears in the packet list Info column, so try "Packet details" and "Packet bytes". 
 
+[source](https://osqa-ask.wireshark.org/questions/4710/how-do-i-search-a-capture-for-a-string/)
+
+## send test datagram udp
+```
+echo "This is my data" > /dev/udp/compute.ilsp.gr/5060
+```
 
 ## Kill docker container from within
 
