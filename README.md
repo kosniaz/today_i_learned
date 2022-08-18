@@ -1,5 +1,14 @@
 # Today I Learned: tutorials/memos/logs
 
+## apt-get update “the following signatures couldn’t be verified because the public key is not available”
+
+run 
+```
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys <priv key>
+```
+
+https://chrisjean.com/fix-apt-get-update-the-following-signatures-couldnt-be-verified-because-the-public-key-is-not-available/
+
 ## search for text inside the packets in wireshark
 
 To find a string within a packet, click on Edit > Find Packet. Under "Find By:" select "string" and enter your search string in the text entry box. You'll probably want to leave "Case sensitive" unchecked. Under "Search in", the default is "Packet list" but that will only find a string that appears in the Info column of the Packet List pane, which is the one-line-per-packet summary view. There is a lot more information in most packets than what appears in the packet list Info column, so try "Packet details" and "Packet bytes". 
