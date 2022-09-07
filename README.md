@@ -1,5 +1,9 @@
 # Today I Learned: tutorials/memos/logs
 
+## use global packages in virtualenv
+
+https://stackoverflow.com/a/53515591
+
 ## apt-get update “the following signatures couldn’t be verified because the public key is not available”
 
 run 
