@@ -1,5 +1,9 @@
 # Today I Learned: tutorials/memos/logs
 
+## set correct shortcut to change keyboard layout
+
+https://askubuntu.com/questions/1029588/18-04-ctrlshift-to-change-language
+
 ## use global packages in virtualenv
 
 https://stackoverflow.com/a/53515591
