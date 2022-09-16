@@ -1,5 +1,16 @@
 # Today I Learned: tutorials/memos/logs
 
+## Record and play audio in docker container (on linux host)
+
+This worked for me
+https://comp0016-team-24.github.io/dev/problem-solving/2020/10/30/passing-audio-into-docker.html
+
+also used these lines to set the user at the end (after all the installation made as USER 0)
+```
+RUN useradd -rm -d /home/kosmas -s /bin/bash -g root -G sudo -u 1000 kosmas
+USER 1000
+```
+
 ## set correct shortcut to change keyboard layout
 
 https://askubuntu.com/questions/1029588/18-04-ctrlshift-to-change-language
