@@ -1,5 +1,10 @@
 # Today I Learned: tutorials/memos/logs
 
+## The hierarchy of loggers in Python
+
+`import logging` gives a singleton logger: that is the root logger. [TOOD: add the rest of this tip]
+
+
 ## Record and play audio in docker container (on linux host)
 
 This worked for me
