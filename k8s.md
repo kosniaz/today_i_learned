@@ -1,5 +1,9 @@
 # Kubernetes TIL
 
+## blue/green method in deploying
+
+https://codefresh.io/learn/software-deployment/what-is-blue-green-deployment/
+
 ## tracking down bugs on k8s logs
 
 1. Use --timestamp in docker logs command
