@@ -94,7 +94,7 @@ It was the webcam
 ```
 This was no disk failure. It was the bloody Lamtech Webcam! After removal, I didn't have this problem again. I will try again to connect it, just to make sure my hypothesis is correct. I will update if something else pops up. 
 
-## docker engine has limited subnets for its network pool
+## Help, my server is blocking my IP! (Or 'docker engine has limited subnets for its network pool')
 
 By default, docker networks are created and assigned a subnet each.
 The subnets created are drawn from the 172.17.0.0/16-172.31.0.0/16 subnet range, i.e.:
@@ -125,9 +125,42 @@ So here we have 16 more subnets available. What happens when we surpass this lim
 
 Anyway, this post was started because a big frustration: until I make the first 15 networks, nothing bad happens. But when I mak e more, docker starts assigning them subnets from the 192.168.X.0 range, **my computer is ignored from the server's network**, because its VPN address happens to be in the 192.168.0.0/20 subnet too. 
 
-How to avoid this? The solution is to describe the subnets to be used in docker's `/etc/docker/daemon.json` file, as cited [here](https://www.lullabot.com/articles/fixing-docker-and-vpn-ip-address-conflicts) and [here](https://serverfault.com/questions/916941/configuring-docker-to-not-use-the-172-17-0-0-range/936255#936255). 
+In order to fix this, you have to, lamentably, delete the problematic docker network. Solution in steps:
+
+### Step 1: Detect which docker network has stolen your IP:
+```
+ifconfig | grep -B 2 192.168
+```
+You will get something like this
+```
+
+br-20271d253c40: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.64.1  netmask 255.255.240.0  broadcast 192.168.79.255
+--
+
+br-23fa8842a863: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.16.1  netmask 255.255.240.0  broadcast 192.168.31.255
+--
+
+br-b22122a7fd66: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.0.1  netmask 255.255.240.0  broadcast 192.168.15.255
+--
+```
+These are the bridge interfaces pertaining to each docker network. Taking into account that the broadcast address is the last address and the bridge address is the first in the network range, you can determine the IP range of every docker network. E.g. for the br-b22122a7fd66 interface, the corresponding docker network holds the range 192.168.0.1-192.168.15.255. 
+
+### Step 2: delete said network (hopefully no one is using it anymore)
+
+The corresponding network will be named like the string after the 'br-' prefix of its corresponding network interface. So, if we have an issue with
+bridge 'br-b22122a7fd66', the docker network is named 'b22122a7fd66'. So it suffices to run
+```
+docker network rm b22122a7fd66
+```
+### Step 3: Make sure it doesn't happen again
+
+How can we avoid this reccuring issue? The solution is to describe the subnets to be used in docker's `/etc/docker/daemon.json` file, as cited [here](https://www.lullabot.com/articles/fixing-docker-and-vpn-ip-address-conflicts) and [here](https://serverfault.com/questions/916941/configuring-docker-to-not-use-the-172-17-0-0-range/936255#936255). 
 
 However, to do this, you need to delete all existing networks, stop all containers and restart the docker daemon.
+
 ## argparse: options vs positional parameters
 
 the only difference is adding a double dash to the name. E.g.
