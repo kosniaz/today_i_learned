@@ -1,5 +1,29 @@
 # Today I Learned: tutorials/memos/logs
 
+## Pylinter and ALE/vim, part two
+
+Watch out for virtual environments. You can debug pylint as follows:
+
+:ALEInfo
+
+this gives the output of the linter commands run (such as pylint). This is especially interesting to find out which pylint executable is 
+run. E.g. in my case the following command was run:
+
+```
+['/usr/bin/zsh', '-c', 'cd ''/path/to/project/directory'' && ''/path/to/project/directory/venv/bin/pylint'' --output-format text --msg-template="{path}:{line}:{column}: {msg_id} ({symbol}) {msg}" --reports n --from-stdin ''/path/to/project/directory/python_file_i_opened.py'' < ''/tmp/vtD9kk2/1/python_file_i_opened.py''']
+```
+
+and I saw that it exited with `1`. 
+
+Under ale, pylint runs as a separate process, and ale's python integration decides which one to run like this:
+
+    First, it looks for a virtualenv, which is a directory called "virtualenv", "venv" or a couple of other options in the directory of the file being edited.
+    If it doesn't find one, it moves up one directory and checks again, repeating this process on failure until it gets to the root.
+    If it still hasn't found a virtualenv, it looks at the VIRTUAL_ENV environment variable and uses that.
+    If that environment variable isn't set, it uses whatever first matches "pylint" (by default) in the PATH. 
+
+If all the files you're editing use virtualenvs, and you're not doing something like editing files on an exported fileshare from a virtual machine running a different operating system, which unfortunately I do quite often, this works fine.
+
 ## The hierarchy of loggers in Python
 
 `import logging` gives a singleton logger: that is the root logger. [TOOD: add the rest of this tip]
