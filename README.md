@@ -1,5 +1,9 @@
 # Today I Learned: tutorials/memos/logs
 
+## How (not) to run a callcenter on opensips
+
+https://github.com/OpenSIPS/opensips/issues/3123
+
 ## How (not) to make an alias to connect to a remote desktop on Win 10
 
 1. Install putty (you'll understand why l8r)
