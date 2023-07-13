@@ -7,6 +7,7 @@
 3. add it to the path: search for "system variables" and make a new entry to the `PATH` variable:  `C:\Users\kosniaz\Desktop\aliases`
 4. create a new batch file: connect.bat and open it with notepad++
 5. write the following line: `putty <user>@<host> -pw <pass>` (source https://stackoverflow.com/questions/23419659/sshpass-is-not-recognized-on-windows)
+6. Ready! Run `connect` on a new command prompt window.
 
 ## Pylinter and ALE/vim, part two
 
