@@ -8,7 +8,6 @@
 4. create a new batch file: connect.bat and open it with notepad++
 5. write the following line: `putty <user>@<host> -pw <pass>` (source https://stackoverflow.com/questions/23419659/sshpass-is-not-recognized-on-windows)
 
-6. 
 ## Pylinter and ALE/vim, part two
 
 Watch out for virtual environments. You can debug pylint as follows:
