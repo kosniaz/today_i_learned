@@ -1,5 +1,14 @@
 # Today I Learned: tutorials/memos/logs
 
+## How (not) to make an alias to connect to a remote desktop on Win 10
+
+1. Install putty (you'll understand why l8r)
+2. create a folder to store aliases e.g. `C:\Users\kosniaz\Desktop\aliases`
+3. add it to the path: search for "system variables" and make a new entry to the `PATH` variable:  `C:\Users\kosniaz\Desktop\aliases`
+4. create a new batch file: connect.bat and open it with notepad++
+5. write the following line: `putty <user>@<host> -pw <pass>` (source https://stackoverflow.com/questions/23419659/sshpass-is-not-recognized-on-windows)
+
+6. 
 ## Pylinter and ALE/vim, part two
 
 Watch out for virtual environments. You can debug pylint as follows:
