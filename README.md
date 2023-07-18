@@ -1,5 +1,10 @@
 # Today I Learned: tutorials/memos/logs
 
+## How to connect to mysql on localhost from a container
+
+You can't use the socket that mysql clients do when you're running in a container (unless you mount it, but do you want to?).
+Worry not, you just have to use the `127.0.0.1` instead of `localhost` and everything will be fine.
+
 ## How (not) to run a callcenter on opensips
 
 https://github.com/OpenSIPS/opensips/issues/3123
