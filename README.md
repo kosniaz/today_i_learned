@@ -1,5 +1,75 @@
 # Today I Learned: tutorials/memos/logs
 
+## Sysadmin stuff
+
+### Testing UDP ports on a machine:
+
+#### Happy case
+
+server side:
+```
+$ nc -ulv 0.0.0.0 12345
+Ncat: Version 7.70
+Ncat: Listening on 0.0.0.0:12345
+```
+
+then open up client side:
+```
+$ nc -uv 10.10.1.2 12345
+Ncat: Version 7.70
+Ncat: Connected to 10.10.1.2:12345
+```
+
+the serve side is still like this:
+
+```
+$ nc -ulv 0.0.0.0 12345
+Ncat: Version 7.70
+Ncat: Listening on 0.0.0.0:12345
+```
+Then type in "abcd" and hit enter:
+
+```
+$ nc -uv 10.10.1.2 12345
+Ncat: Version 7.70
+Ncat: Connected to 10.10.1.2:12345
+abcd
+```
+Then server gets the message
+```
+$ nc -ulv 0.0.0.0 12345
+Ncat: Version 7.70
+Ncat: Listening on 0.0.0.0:12345
+Ncat: Connection from 10.10.1.1.
+abcd
+```
+
+#### Bad case n1: In case firewall is blocking
+
+Server will not display anything, client will get "Ncat: operation not permitted"
+```
+$ nc -uv 10.10.1.2 12345
+Ncat: Version 7.70
+Ncat: Connected to 10.10.1.2:12345
+abcd
+Ncat: Operation not permitted
+```
+
+
+#### Bad case n2: In case server side is down.
+
+If you first kill the server then use the client (or just change the target port), you will get this behaviour:
+
+```
+$ nc -uv 10.10.1.2 12345
+Ncat: Version 7.70
+Ncat: Connected to 10.10.1.2:12345
+abcd
+Ncat: Connection Refused
+```
+
+Ncat: Connection from
+
 ## How to connect to mysql on localhost from a container
 
 You can't use the socket that mysql clients do when you're running in a container (unless you mount it, but do you want to?).
