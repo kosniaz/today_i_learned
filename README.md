@@ -43,8 +43,16 @@ Ncat: Listening on 0.0.0.0:12345
 Ncat: Connection from 10.10.1.1.
 abcd
 ```
+#### Bad case 1: Port is already taken 
 
-#### Bad case n1: In case firewall is blocking
+This one is purely on the server side. Run the server command, and if the port is already taken, you get this message:
+```
+$ nc -ulv 0.0.0.0 12345
+Ncat: Version 7.70
+Ncat: bind to 0.0.0.0:12345: Adress already in use. QUITTING
+```
+
+#### Bad case 2: In case firewall is blocking client -> server communication
 
 Server will not display anything, client will get "Ncat: operation not permitted"
 ```
@@ -55,8 +63,7 @@ abcd
 Ncat: Operation not permitted
 ```
 
-
-#### Bad case n2: In case server side is down.
+#### Bad case 3: In case server side is down.
 
 If you first kill the server then use the client (or just change the target port), you will get this behaviour:
 
