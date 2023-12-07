@@ -1,5 +1,27 @@
 # Today I Learned: tutorials/memos/logs
 
+## Slowest way to add 10 seconds of trailing silence to bytes object
+```
+# suppose we have a bytes object, aka bytestring in audio_bytes
+chunk_size= 6400 # suppose mono, 16000KHz sample rate, sample size is 2 bytes, and a chunk is 0.2 seconds 
+extra_chunks = 10/0.2
+extra_bytes_len = extra_chunks * chunk_size
+for i in range(extra_bytes_len):
+    audio_bytes+=b'0'
+```
+This will probably take more than 5 seconds, even a fast server takes around 15 seconds to do that.
+The reason is that the bytes is immutable, thus a new object is created every time (that's a lot of mallocs!).
+
+The right way to do that is to make a bytearray (which is mutable) and then join it with the bytes object.
+```
+trailing_silence_bytes=bytearray(extra_bytes_n)
+audio_bytes= audio_bytes+trailing_silence_bytes
+```
+
+
+source: Experimentation, also [this](https://stackoverflow.com/questions/62903377/python3-bytes-vs-bytearray-and-converting-to-and-from-strings)
+
+
 ## Sysadmin stuff
 
 ### Testing UDP ports on a machine:
