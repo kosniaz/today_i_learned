@@ -1,5 +1,22 @@
 # Today I Learned: tutorials/memos/logs
 
+## Mysql basics - pt2
+
+How to add columns to an existing table
+
+```
+alter table calls_log add column error_level varchar(255)
+```
+How to remove columns from existing table
+```
+alter table calls_log drop column error_level
+
+```
+
+Allow null values in existing table
+```
+alter table calls_log alter column error_level varchar(25) NULL;
+```
 ## Slowest way to add 10 seconds of trailing silence to bytes object
 ```
 # suppose we have a bytes object, aka bytestring in audio_bytes
