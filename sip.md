@@ -1,5 +1,10 @@
 # sip tutorial notes
 
+
+## Running t_newtran() before exiting in opensips
+
+If you want to simulate opensips not responding at all, you have to run `exit;` before running `t_newtran()`. `t_newtran()` causes the return of `100 Trying` to the caller.
+
 ## introduxion
 
 * sip server needed to handle incoming calls from trunk
