@@ -1,5 +1,16 @@
 # Today I Learned: tutorials/memos/logs
 
+## kaldi, pykaldi
+
+Some lessons from my recent experience playing with [this repo](https://github.com/georgepar/kaldi-grpc-server):
+
+1. No use copying python files into the container, if the files are already installed through `pip install .` in an earlier step.
+2. Include the `poetry.lock` file to make dependency resolution faster.
+3. uninstall everything you don't need as the last build step, to make the image as lightweight as possible.
+4. Create a base image with all the necessary libraries/requirements etc, to make build time as quick as possible (as fast as copying some files and installing a couple extra libraries)
+5. Ask the person who built the model if there are ivectors in the features.
+6. kaldi uses beam search to build the transcription. For beam width `bw`, the time complexity of this operation is `O(bw^k)` where k is the maximum depth of the traversal.
+
 ## Mysql basics - pt2
 
 How to add columns to an existing table
