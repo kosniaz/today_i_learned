@@ -1,5 +1,16 @@
 # Today I Learned: tutorials/memos/logs
 
+## difference between atomic read/write and atomic rwm
+
+![image](https://github.com/user-attachments/assets/29dc0e4b-309a-4a2b-a3f9-57e44d3b06ea)
+
+[Image source]https://preshing.com/20130618/atomic-vs-non-atomic-operations/)
+
+[RWM](https://preshing.com/20150402/you-can-do-any-kind-of-atomic-read-modify-write-operation/) is more expensive than
+[atomic read/store](https://preshing.com/20130618/atomic-vs-non-atomic-operations/)
+
+
+
 ## kaldi, pykaldi
 
 Some lessons from my recent experience playing with [this repo](https://github.com/georgepar/kaldi-grpc-server):
