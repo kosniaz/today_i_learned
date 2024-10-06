@@ -1,5 +1,46 @@
 # Kubernetes TIL
 
+## Provisioning AKS cluster with azure-cli
+
+### Make the resource group (be consistent with a naming convention)
+``` 
+azure rg create --name rg-<appname>-eEU-<number> --location easteurope
+```
+### Provision the cluster (better use low cost solutions for testing devops)
+```
+az aks create \
+  --resource-group <your-resource-group>  \
+  --name <your-aks-name> \
+  --node-count 2 \
+  --node-vm-size Standard_B2s \
+  --generate-ssh-keys
+```
+
+((by the way, tmux has internal copy and paste.)[https://www.baeldung.com/linux/tmux-copy-paste-keyboard-mouse])
+
+
+### Install kubectl (if not there already)
+
+```
+az aks install-cli
+```
+
+### Get AKS cluster credentials
+```
+az aks get-credentials --resource-group aksResourceGroup --name myAKSCluster
+```
+
+This will store the credentials in `~/.kube/config`
+
+### Check for storage
+
+Check what storage classes are available. 
+```
+kubectl get storageclass
+```
+
+With Azure, you get a variety of storage classes. 
+
 ## blue/green method in deploying
 
 https://codefresh.io/learn/software-deployment/what-is-blue-green-deployment/
