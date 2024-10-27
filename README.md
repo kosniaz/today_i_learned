@@ -1,5 +1,18 @@
 # Today I Learned: tutorials/memos/logs
 
+## reminder: quotes in bash
+
+```
+[me@linuxbox me]$ echo text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER
+text /home/me/ls-output.txt a b foo 4 me
+[me@linuxbox me]$ echo "text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER"
+text ~/*.txt {a,b} foo 4 me
+[me@linuxbox me]$ echo 'text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER'
+text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER
+```
+
+Example from [one of the oldest ebooks on the subject](https://www.linuxcommand.org/lc3_lts0080.php)
+
 ## difference between atomic read/write and atomic rwm
 
 ![image](https://github.com/user-attachments/assets/29dc0e4b-309a-4a2b-a3f9-57e44d3b06ea)
