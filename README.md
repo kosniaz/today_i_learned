@@ -11,7 +11,7 @@ text ~/*.txt {a,b} foo 4 me
 text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER
 ```
 
-Example from [one of the oldest ebooks on the subject](https://www.linuxcommand.org/lc3_lts0080.php)
+(example taken from [one of the oldest ebooks on the subject](https://www.linuxcommand.org/lc3_lts0080.php))
 
 ## difference between atomic read/write and atomic rwm
 
