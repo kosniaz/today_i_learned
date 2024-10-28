@@ -1,5 +1,28 @@
 # Today I Learned: tutorials/memos/logs
 
+## ping is not a valid "privilege escalation by setuid" example anymore
+
+### Theoretical introduction
+
+Unix files, apart from their permissions flags, also have their UID and GID flags.
+
+In case of executable files, uid and gid flags specify
+whether the resulting process has the uid and gid of the file owner
+or the uid and gid of the user executing it. if uid (gid resp) is set to true
+the process will have the uid (gid resp) of the file owner. This is how
+some commands run by non-root users can have root priviliges: ping.
+
+How are these flags represented? by another octal digit in front
+of the three permissions octals. if setuid = 1, then we add 4
+if setguid= 1 then we add two. So the two flags occupy the 2 highest
+order bits in the bit triplet.
+
+A classic example of that was ping.
+
+### As of the 2011 kernel release, ping has changed
+
+As we can see in [this commit message](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=c319b4d76b9e583a5d88d6bf190e079c4e43213d), ping is now enabled in user-space. In other words, while `stat $(which ping)` gives us 0755 access modes, we can still use it without root priviliges.
+
 ## reminder: quotes in bash
 
 ```
