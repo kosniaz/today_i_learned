@@ -19,7 +19,7 @@ order bits in the bit triplet.
 
 A classic example of that was ping.
 
-### As of the 2011 kernel release, ping has changed
+### After a kernel release in 2011, ping has changed
 
 As we can see in [this commit message](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=c319b4d76b9e583a5d88d6bf190e079c4e43213d), ping is now enabled in user-space. In other words, while `stat $(which ping)` gives us 0755 access modes, we can still use it without root priviliges.
 Source:https://stackoverflow.com/questions/63177554/linux-why-am-i-able-to-use-ping-if-neither-setuid-nor-capabilities-are-set
