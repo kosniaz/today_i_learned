@@ -1,5 +1,38 @@
 # Today I Learned: tutorials/memos/logs
 
+
+## redirection confusion
+
+Shell commands outputs can be redirected. E.g. 
+```
+cat a.txt > results.txt
+```
+
+redirects stdout to results.txt. However, we can also redirect stdout to stderr, e.g. 
+```
+cat a.txt 2>&1
+```
+The ampersand is there to enable us to redirect to actual files named '1' or '2'. (in older versions 2>1 actually stderr redirected to stdout).
+
+We can perform 2 redirections as we have two output streams:
+```
+diff a b 1>stdout_file 2>stderr_file
+```
+
+and what we can combine them (mind the order here)
+```
+diff a b 1>results_file 2>&1
+```
+If we set the reverse order in redirections, stderr will be prtined in stdout! To write both errors and standard output to file, the order should be like in the example. Standard output would first be redirected to the file, then stderr would additionally be redirected to the stdout handle that has already been changed to point at the file: command > file 2>&1. This is one more detail that shows C's influence on the Unix shells. 
+
+Last, although not POSIX-standard, a quickie to combine stdout/stderr in one file is 
+```
+diff a b &> results_file
+```
+
+source: [wikipedia](https://en.wikipedia.org/wiki/Redirection_(computing)#Redirecting_to_and_from_the_standard_file_handles) and fooling around instead of preparing for interview.
+
+
 ## ping is not a valid "privilege escalation by setuid" example anymore
 
 ### Theoretical introduction
